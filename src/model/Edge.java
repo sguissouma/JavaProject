@@ -10,9 +10,11 @@ public class Edge extends DefaultEdge implements Comparable<Edge>{
 	
 	private int door; //0 = no door, 1 = closed door, 2 = open door
 	
-	public Edge() {
+	//TODO : créer un enum pour le type de porte
+	
+	public Edge(int doorType) {
 		super();
-		this.door = 0; //defaults as no door
+		this.door = doorType;
 	}
 	
 	@Override
