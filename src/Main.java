@@ -1,4 +1,4 @@
-import model.Constants;
+
 import model.Edge;
 import model.Graph;
 import model.Labyrinth;
