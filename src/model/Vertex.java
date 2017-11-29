@@ -59,7 +59,31 @@ public class Vertex implements Comparable<Vertex>{
 	}
 	
 	public boolean inBorders(Directions dir, Labyrinth l) {
-		return (x >= 0 && x < l.getWidth() && y >= 0 && y < l.getHeight());
+		int xt, yt;
+		switch (dir) {
+		case NORTH:
+			xt = x;
+			yt = y - 1;
+			break;
+		case SOUTH:
+			xt =x;
+			yt = y+1;
+			break;
+		case WEST:
+			xt = x-1;
+			yt = y;
+			break;
+		case EAST:
+			xt = x+1;
+			yt =y;
+			break;
+
+		default:
+			xt =x;
+			yt =y;
+			break;
+		}
+		return (xt >= 0 && xt < l.getWidth() && yt >= 0 && yt < l.getHeight());
 	}
 	
 }

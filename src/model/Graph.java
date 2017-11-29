@@ -1,5 +1,4 @@
 package model;
-import java.awt.List;
 import java.util.ArrayList;
 
 import org.jgrapht.graph.SimpleGraph;
@@ -24,6 +23,22 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 				return true;
 		}
 		return false;
+	}
+	
+	/*
+	 * 	graph MyGraph{
+	 * 	  V_0_0 [label="0,0"];
+	 *    etc
+	 *    
+	 *    V_0_0 -- V_0_1 [];
+	 *    
+	 *  }
+	 *  
+	 *  dot -Tpng -o mongraphe.png mongraphe.dot
+	 */
+	
+	public void toDot() {
+		
 	}
 
 	
