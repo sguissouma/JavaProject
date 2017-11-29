@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.image.DirectColorModel;
+import java.io.IOException;
 import java.util.Random;
 import java.util.Vector;
 
@@ -101,6 +102,12 @@ public class Labyrinth {
 
 	public void printGraph() {
 		System.out.println(graph.toString());
+		try {
+			graph.toDot("Laby.dot");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 //	public void buildLabyrinth(Vertex v) {
