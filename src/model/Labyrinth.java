@@ -1,22 +1,22 @@
 package model;
 
-<<<<<<< HEAD
-=======
 import java.awt.image.DirectColorModel;
 import java.io.IOException;
->>>>>>> 819deb88b9fabb4b07a7894775f9d24c0e5b0c65
 import java.util.Random;
+import java.util.Vector;
 
 public class Labyrinth {
-	private Graph graph;
-	private Random rand;
-	public static int size = 4;
+	public static final int size = 4;
 	
 	public static final int TOP_BORDER = 0;
 	public static final int RIGHT_BORDER = size;
 	public static final int LEFT_BORDER = 0;
 	public static final int BOTTOM_BORDER = size;
 
+	
+	private Graph graph;
+	private Random rand;
+	
 	private int width;
 	private int height;
 	
@@ -26,9 +26,6 @@ public class Labyrinth {
 		graph = new Graph();
 		graph.addVertex(v);
 		rand = new Random();
-		
-		if(graph.contains(new Vertex(0,0)))
-			System.out.println("OK");
 		
 		buildRandomPath(v);
 	}
@@ -57,13 +54,21 @@ public class Labyrinth {
 	private void buildRandomPath(Vertex vertex) {
 
 		//initialisation des directions
-		Directions directions[] = Directions.values();
+		Vector<Directions> v = new Vector<Directions>();
+		for(int i=0; i<4; ++i) {
+			v.add(Directions.values()[i]);
+		}
+		Directions directions[] = new Directions[4];
+		for(int i=0; i<directions.length; ++i) {
+			int index= rand.nextInt(v.size());
+			directions[i]= v.get(index);
+			v.remove(index);
+		}
 
 		//pour chacune de ces directions, on avance en profondeur d'abord
-		for(int i=0;i<4; i++) {
+		for(int i=0;i<4; ++i) {
 			Directions dir = directions[i];
-			//TODO fonction en prédicat à implémenter si on garde l'exemple du prof
-			if ((vertex.inBorders(dir,this)) & (graph.contains(vertex))) {
+			if ((vertex.inBorders(dir,this))) {
 				int x = vertex.getX();
 				int y = vertex.getY();
 				int xt = 0;
@@ -83,11 +88,15 @@ public class Labyrinth {
 				break;				
 				}
 				Vertex next = new Vertex(xt, yt);
-				graph.addVertex(next);
-				graph.addEdge(vertex, next);
-				buildRandomPath(next); 
-				//TODO : ça marche pas !
+				if(!graph.contains(next)){
+					graph.addVertex(next);
+					//System.out.println(next.toString());
+					//System.out.println(vertex.toString());
+					graph.addEdge(vertex, next, new Edge(0));
+					buildRandomPath(next); 
+				}
 			} 
+			
 		}
 	}
 
