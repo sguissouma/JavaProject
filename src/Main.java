@@ -1,21 +1,33 @@
-import model.Labyrinth;
-import model.Vertex;
-
 import controller.*;
-public class Main {
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class Main{ //peut-être extends Application, si on garde la version en commentaire...
+
+	//	public static void main(String[] args) {
+	//		launch();
+	//		
+	//	}
+	//
+	//	@Override
+	//	public void start(Stage primaryStage) throws Exception {
+	//		Controller.makeInstance();
+	//		Controller.start(primaryStage);
+	//	}
+	//	
+	//	public void stop() {
+	//		System.exit(0);
+	//	}
 
 	private GestionnaireGraphique gestion;
-	
+
 	public static void main(String[] args) {
-	
-		//TEst 
-		
-		Labyrinth laby = new Labyrinth(new Vertex(0,0));
-		laby.printGraph();
-		
+
+
 		/* Mise en place du gestionnaire graphique et lancement */
 		GestionnaireGraphique gestion = new GestionnaireGraphique();
 		gestion.run(); 
 	}
+
 
 }
