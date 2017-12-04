@@ -1,12 +1,7 @@
 package model;
-<<<<<<< HEAD
-import java.awt.List;
-=======
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
->>>>>>> 819deb88b9fabb4b07a7894775f9d24c0e5b0c65
 import java.util.ArrayList;
 
 import org.jgrapht.graph.SimpleGraph;
@@ -32,9 +27,6 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 		}
 		return false;
 	}
-<<<<<<< HEAD
-=======
-	
 	/*
 	 * 	graph MyGraph{
 	 * 	  V_0_0 [label="0,0"];
@@ -77,7 +69,5 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 		
 		w.close();
 	}
->>>>>>> 819deb88b9fabb4b07a7894775f9d24c0e5b0c65
-
 	
 }

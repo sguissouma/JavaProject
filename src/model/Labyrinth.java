@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.image.DirectColorModel;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Vector;

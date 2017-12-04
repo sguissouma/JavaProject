@@ -7,7 +7,7 @@ import javax.swing.JFrame;
  public abstract class Fenetre extends JFrame{
 
 	/**
-	  Cette méthode repack la fenetre et la centre au milieu de l'écran de l'utilisateur
+	  Cette mï¿½thode repack la fenetre et la centre au milieu de l'ï¿½cran de l'utilisateur
 	 */
 	public void centrer(){
 		this.pack();

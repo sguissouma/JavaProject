@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 /**
- * Classe matérialisant la fenêtre d'acceuil du programme.
+ * Classe matï¿½rialisant la fenï¿½tre d'acceuil du programme.
  * @author Carlos Nezout
  *
  */
@@ -31,7 +31,7 @@ public class FenetreAccueil extends Fenetre{
 	 */
 	public FenetreAccueil(){
 		
-		this.setTitle("Labyrinthe : ");
+		this.setTitle("Labyrinthe : Menu Principal");
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.WHITE);

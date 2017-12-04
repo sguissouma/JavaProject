@@ -13,7 +13,7 @@ import view.FenetrePrincipale;
 public class GestionnaireGraphique extends Gestionnaire{
 
 	/**
-	 * Fenêtre d'acceuil, donnant accès au menu principal
+	 * Fenï¿½tre d'accueil, donnant accï¿½s au menu principal
 	 */
 	private FenetreAccueil fenetreAccueil;
 
@@ -27,7 +27,7 @@ public class GestionnaireGraphique extends Gestionnaire{
 
 	@Override
 	/**
-	 * Cette méthode lance le gestionnaire graphique. Elle lance le menu principal via la fenêtre d'accueil.
+	 * Cette mï¿½thode lance le gestionnaire graphique. Elle lance le menu principal via la fenï¿½tre d'accueil.
 	 */
 	public void run() {
 		setControlersFenetreAccueil();
@@ -36,8 +36,8 @@ public class GestionnaireGraphique extends Gestionnaire{
 	}
 	
 	/**
-	 * Cette méthode ouvre une nouvelle fenetre modale pour afficher une erreur
-	 * @param error le message à afficher
+	 * Cette mï¿½thode ouvre une nouvelle fenetre modale pour afficher une erreur
+	 * @param error le message ï¿½ afficher
 	 */
 	@Override
 	protected void erreur(String error) {
@@ -45,7 +45,7 @@ public class GestionnaireGraphique extends Gestionnaire{
 	}
 	
 	/**
-	 * Attribue les controleurs aux éléments de la fenetre d'accueil
+	 * Attribue les controleurs aux ï¿½lï¿½ments de la fenetre d'accueil
 	 */
 	private void setControlersFenetreAccueil(){
 		ListenerAccueil listener = new ListenerAccueil(this);
@@ -56,7 +56,7 @@ public class GestionnaireGraphique extends Gestionnaire{
 	}
 	
 	/**
-	 * Attribue les controleurs aux éléments de la fenetre des options
+	 * Attribue les controleurs aux ï¿½lï¿½ments de la fenetre des options
 	 */
 	private void setControlersFenetreOption(){
 				
@@ -73,7 +73,7 @@ public class GestionnaireGraphique extends Gestionnaire{
 	
 	/**
 	 * Fonction permettant d'arreter le programme.<br/>
-	 * Il procède à la fermeture des fenêtres
+	 * Il procï¿½de ï¿½ la fermeture des fenï¿½tres
 	 */
 	public void endProgram(){
 		fenetreAccueil.dispose();		
