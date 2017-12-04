@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Vector;
 
 public class Labyrinth {
-	public static final int size = 4;
+	public static final int size = 5;
 	
 	public static final int TOP_BORDER = 0;
 	public static final int RIGHT_BORDER = size;

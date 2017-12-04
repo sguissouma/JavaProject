@@ -3,6 +3,8 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javafx.application.Application;
+
 /**
  * Cette classe "�coute" les boutons de la fenetre d'accueil
  * @author Carlos Nezout
@@ -23,7 +25,9 @@ public class ListenerAccueil implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		
 		if(arg0.getSource()==gestion.getFenetreAccueil().getStart()){
-			gestion.getFenetrePrincipale().display();//on affiche la fen�tre principale en cas de clic sur le bouton getStart 
+			//gestion.getFenetrePrincipale().display();//on affiche la fen�tre principale en cas de clic sur le bouton getStart 
+			GameWindow gw = new GameWindow();
+			gw.open();
 		}
 		else if(arg0.getSource()==gestion.getFenetreAccueil().getLoad()){
 			

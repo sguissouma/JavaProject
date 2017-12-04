@@ -13,7 +13,6 @@ public class FenetrePrincipale extends Fenetre{
 	 * Toolbar du haut de la fenetre
 	 */
 	private TopToolbarFenPrincipale topToolbar;
-	private GameDisplay gameDisplay;
 	
 	
 	public FenetrePrincipale(){
@@ -38,8 +37,7 @@ public class FenetrePrincipale extends Fenetre{
 	}
 	
 	private void initCenter(){
-		gameDisplay = new GameDisplay(4, 4);//TODO : trouver un moyen de lier WIDTH et HEIGHT à ceux qui sont (pour l'instant) écrits dans Labyrinthe.java
-		this.add(gameDisplay,BorderLayout.CENTER);
+
 	}
 	
 	private void initBottom(){
@@ -60,7 +58,6 @@ public class FenetrePrincipale extends Fenetre{
 	}
 	
 	public void update() {
-		gameDisplay.render();
 	}
 
 }
