@@ -8,7 +8,7 @@ public class GameWindow extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		//TODO Auto-generated method stub
-		Controller.makeInstance();
+		Controller.getInstance();
 		Controller.start(primaryStage);
 	}
 

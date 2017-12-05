@@ -7,7 +7,7 @@ import view.ViewFrame;
 
 public class Controller {
 	
-	private static Controller instance;
+	private static Controller instance = null;
 	private static ViewFrame view;
 	private static Labyrinth model;
 	
@@ -16,15 +16,10 @@ public class Controller {
 		view = new ViewFrame();
 		model = new Labyrinth();
 	}
-
-	public static void makeInstance() {
-		if(instance==null)
-			instance = new Controller();
-	}
 	
 	public static Controller getInstance() {
 		if(instance==null)
-			makeInstance();
+			instance = new Controller();
 		return instance;
 	}
 	
