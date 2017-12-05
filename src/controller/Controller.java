@@ -14,7 +14,7 @@ public class Controller {
 	
 	public Controller() {
 		view = new ViewFrame();
-		model = new Labyrinth(new Vertex(0,0));
+		model = new Labyrinth();
 	}
 
 	public static void makeInstance() {

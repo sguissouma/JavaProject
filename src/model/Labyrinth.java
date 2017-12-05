@@ -19,6 +19,10 @@ public class Labyrinth {
 	private int width;
 	private int height;
 	
+	public Labyrinth() {
+		this(new Vertex(0,0));
+	}
+	
 	public Labyrinth(Vertex v) {
 		width = size;
 		height = size;
