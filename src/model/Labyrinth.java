@@ -140,5 +140,124 @@ public class Labyrinth {
 	public void removeElement(ILabyrinthElements element) {
 		labElem.remove(element);
 	}
+	
+	public void printGraph(String s) {
+		System.out.println(graph.toString()+", NB ARETES : " +graph.edgeSet().size());
+		try {
+			graph.toDot(s);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	/**
+	 * Simplifie arbitrairement le labyrinthe en changeant l'état de plusieurs aretes du graphe en "CLOSED_DOOR"
+	 * @since 01/12/17
+	 */
+	public void openDoorRandom() {
+		for (int i = 0; i <= 1000; i++) {
+			Vertex vertex = graph.randomVertex();		
+			if (vertex != null) {
+				Directions dir = Directions.randomDirection();			
+				if (isWall(vertex, dir)) {
+					Vertex vertex2 = graph.getVertexByDir(vertex, dir);
+					if(vertex2 != null) {
+						Edge edge = graph.getEdge(vertex2, vertex);					
+						if(edge == null) {											
+							graph.addEdge(vertex, vertex2, new Edge(DoorType.OPENED_DOOR));
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Ferme arbitrairement une porte
+	 */
+	public void closeDoorRandom() {
+		Edge edge = graph.randomEdge();
+		closeDoor(edge);
+	}
+
+
+	private void closeDoor(Edge edge) {
+		edge.setDoor(DoorType.CLOSED_DOOR);		
+	}
+	
+	//prédicats de détection d'état de porte
+	
+	/**
+	 * VÃ©rifie si il n'y a pas de liaison direct entre 2 sommets 
+	 * @param v sommet d'origine
+	 * @param dir direction permettant d'identifier le deuxiÃšme sommet concernÃ©
+	 * @return un booléen sur le fait qu'il existe ou non un arc entre les 2 sommets
+	 * @since 01/12/17
+	 */
+	public boolean isWall(Vertex v, Directions dir) {
+		Vertex tmpV = v.moveTo(dir, this);
+		return (!graph.containsEdge(v, tmpV));
+	}
+	
+	public boolean isClosed(Vertex vertex, Directions dir) {
+		Edge edge = graph.getEdge(vertex, dir);
+		return ((edge == null) || (edge.getDoor() == DoorType.CLOSED_DOOR));
+	}
+	
+	public boolean isOpened(Vertex vertex, Directions dir) {
+		Edge edge = graph.getEdge(vertex, dir);
+		return ((edge != null) && (edge.getDoor() != DoorType.CLOSED_DOOR));
+	}
+	
+	public boolean isClosedDoor(Vertex vertex, Directions dir) {
+		Edge edge = graph.getEdge(vertex, dir);
+		return ((edge != null) && (edge.getDoor() == DoorType.CLOSED_DOOR));
+	}
+	
+	public boolean isOpenedDoor(Vertex vertex, Directions dir) {
+		Edge edge = graph.getEdge(vertex, dir);
+		return ((edge != null) && (edge.getDoor() == DoorType.OPENED_DOOR));
+	}
+	
+	/**
+	 * 
+	 * @param source
+	 * @param target
+	 * @since 4/12/17
+	 */
+	private void calculateManhattanDistance(Vertex source, Vertex target) {
+		Queue<Vertex> fifo = new ArrayDeque<>();
+		target.setNbr(1);
+		fifo.add(target);
+		while(!(fifo.isEmpty())) {
+			Vertex actual = fifo.remove();
+			for (Directions dir : Directions.values()) {
+				if(this.isOpened(actual, dir)) {
+					Vertex next = graph.getVertexByDir(actual, dir);
+					if(next.getNbr()==0) {
+						next.setNbr(actual.getNbr()+1);
+						if( next.compareTo(source) != 0) {
+							fifo.add(next);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param source
+	 * @param target
+	 * @since 4/12/17
+	 */
+	public void launchManhattan(Vertex source, Vertex target) {
+		for (Vertex vertex: graph.vertexSet())
+			vertex.setNbr(0);
+		calculateManhattanDistance(source, target);
+	}
 
 }
