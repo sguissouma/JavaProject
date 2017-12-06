@@ -1,6 +1,8 @@
 package model;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
@@ -12,6 +14,7 @@ public class Labyrinth {
 	public static final int LEFT_BORDER = 0;
 	public static final int BOTTOM_BORDER = size;
 
+	private List<LabyrinthElement> labElem;
 	
 	private Graph graph;
 	private Random rand;
@@ -113,49 +116,29 @@ public class Labyrinth {
 		}
 	}
 	
-//	public void buildLabyrinth(Vertex v) {
-//		int c;
-//		for(int i=0; i<4; i++) {
-//			c = rand.nextInt(4);
-//			//System.out.println("c = "+ c);
-//			Vertex v1 = new Vertex(v.getX(),v.getY());
-//			if(c == Constants.D_NORTH) {
-//				v1.setY(v1.getY()-1);
-//				if(!graph.containsVertex(v1) && v1.getY()>=Constants.TOP_BORDER) {
-//					System.out.println("NORTH");
-//					graph.addVertex(v1);
-//					graph.addEdge(v, v1);
-//				}
-//			}
-//			else if(c == Constants.D_EAST) {
-//				v1.setX(v1.getX()+1);
-//				if(!graph.containsVertex(v1) && v1.getX()<Constants.RIGHT_BORDER) {
-//					System.out.println("EAST");
-//					graph.addVertex(v1);
-//					graph.addEdge(v, v1);
-//				}
-//			}
-//			else if(c == Constants.D_SOUTH) {
-//				v1.setY(v1.getY()+1);
-//				if(!graph.containsVertex(v1) && v1.getY()<Constants.BOTTOM_BORDER) {
-//					System.out.println("SOUTH");
-//					graph.addVertex(v1);
-//					graph.addEdge(v, v1);
-//				}
-//			}
-//			else if(c == Constants.D_WEST) {
-//				v1.setX(v1.getX()-1);
-//				if(!graph.containsVertex(v1) && v1.getX()>=Constants.LEFT_BORDER) {
-//					System.out.println("WEST");
-//					graph.addVertex(v1);
-//					graph.addEdge(v, v1);
-//				}
-//			}
-//			printGraph();
-//			buildLabyrinth(v1);
-//		}
-//	}
 	
-
+	
+	public List<LabyrinthElement> getElementsByType(LabyrinthElementType type) {
+		List<LabyrinthElement> res = new ArrayList<LabyrinthElement>();
+		
+		for(LabyrinthElement i : labElem) {
+			if(i.getType() == type) {
+				res.add(i);
+			}
+		}
+		return res;
+		
+	}
+	public LabyrinthElement getElementAt(int x, int y) {
+		for(LabyrinthElement i : labElem) {
+			if(i.getPosition().x == x && i.getPosition().y == y)
+				return i;
+		}
+		return null;
+		
+	}
+	public void removeElement(ILabyrinthElements element) {
+		labElem.remove(element);
+	}
 
 }
