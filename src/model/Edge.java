@@ -3,32 +3,56 @@ import org.jgrapht.graph.DefaultEdge;
 
 public class Edge extends DefaultEdge implements Comparable<Edge>{
 	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private DoorType door; 
 	
-	private int door; //0 = no door, 1 = closed door, 2 = open door
 	
-	//TODO : créer un enum pour le type de porte
-	
-	public Edge(int doorType) {
+	public Edge(DoorType doorType) {
 		super();
 		this.door = doorType;
 	}
+	/* Constructeur par défaut */
+	
+	public Edge() {
+		super();
+		this.door = DoorType.CORRIDOR;
+	}
+	
+	
+	public Vertex getSource(){
+		return (Vertex) super.getSource();
+	}
+	
+	public Vertex getTarget() {
+		return (Vertex) super.getTarget();
+	}
+	
 	
 	@Override
 	public int compareTo(Edge o) {
-		int diffSource = ((Vertex)this.getSource()).compareTo((Vertex)o.getSource());
+		int diffSource = this.getSource().compareTo(o.getSource());
 		if (diffSource !=0)
 			return diffSource;
 		else
-			return  ((Vertex)this.getTarget()).compareTo((Vertex)o.getTarget());
+			return  this.getTarget().compareTo(o.getTarget());
 	}
 	
 	public String toString() {
 		String s = "[" + this.getSource().toString() + "<->" + this.getTarget().toString() + "]";
 		return s;
 	}
-
-}
+	
+	public void setDoor(DoorType doorType){
+		this.door = doorType;
+	}
+	
+	public DoorType getDoor() {
+		return this.door;
+	}
