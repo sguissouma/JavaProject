@@ -56,3 +56,4 @@ public class Edge extends DefaultEdge implements Comparable<Edge>{
 	public DoorType getDoor() {
 		return this.door;
 	}
+}

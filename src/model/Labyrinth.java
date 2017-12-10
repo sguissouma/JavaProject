@@ -1,8 +1,10 @@
 package model;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Vector;
 
@@ -98,7 +100,7 @@ public class Labyrinth {
 					graph.addVertex(next);
 					//System.out.println(next.toString());
 					//System.out.println(vertex.toString());
-					graph.addEdge(vertex, next, new Edge(0));
+					graph.addEdge(vertex, next, new Edge(DoorType.CLOSED_DOOR));
 					buildRandomPath(next); 
 				}
 			} 
