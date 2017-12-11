@@ -1,23 +1,32 @@
 package controller;
 
-import model.LabyrinthElementType;
+import model.Directions;
 import model.Player;
-import view.Sprite;
 
 public class PlayerController {
 
 	private Player player;
-	private Sprite playerView;
 	
 	public PlayerController(){
-		this.player = new Player(0, 0, LabyrinthElementType.PLAYER, "player");
-		this.playerView = new Sprite();
-		this.playerView.setImage(this.player.getImageName()+".png");
-        this.playerView.setPosition(10, 10);
 	}
 	
-	public void move(int x, int y){
-		this.player.setPosition(x, y);
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+	
+	public void move(Directions direction){
+		if (direction == Directions.WEST){
+			this.player.setPosition(this.player.getPosition().x - 1, this.player.getPosition().y);
+      	}
+		else if (direction == Directions.EAST){
+			this.player.setPosition(this.player.getPosition().x + 1, this.player.getPosition().y);
+  		}
+		else if (direction == Directions.NORTH){
+			this.player.setPosition(this.player.getPosition().x, this.player.getPosition().y - 1);
+  		}
+		else{
+			this.player.setPosition(this.player.getPosition().x, this.player.getPosition().y + 1);
+  		}
 	}
 	
 }

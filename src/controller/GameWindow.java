@@ -2,14 +2,16 @@ package controller;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.Labyrinth;
+import view.ViewFrame;
 
 public class GameWindow extends Application {
 
+	private static ViewFrame view;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		//TODO Auto-generated method stub
-		Controller.getInstance();
-		Controller.start(primaryStage);
+		view.start(primaryStage, Labyrinth.size, Labyrinth.size);
 	}
 
 	public void stop() {
@@ -19,6 +21,8 @@ public class GameWindow extends Application {
 
 	public GameWindow() {
 		super();
+		view = new ViewFrame();
+		Controller.getInstance();
 	}
 	
 	public void open() {

@@ -1,19 +1,16 @@
 package controller;
 
-import javafx.stage.Stage;
+import model.Directions;
 import model.Labyrinth;
-import model.Vertex;
-import view.ViewFrame;
 
 public class Controller {
 	
 	private static Controller instance = null;
-	private static ViewFrame view;
 	private static Labyrinth model;
 	
+	private PlayerController playerController;
 	
 	public Controller() {
-		view = new ViewFrame();
 		model = new Labyrinth();
 	}
 	
@@ -22,9 +19,16 @@ public class Controller {
 			instance = new Controller();
 		return instance;
 	}
-	
-	public static void start(Stage stage) {
-		view.start(stage, Labyrinth.size, Labyrinth.size);
-	}
 
+	public void setPlayerController(PlayerController playerController) {
+		this.playerController = playerController;
+	}
+	
+	public void movePlayer(Directions direction){
+		// TODO
+		//verify with Labyrinth model if player could move
+		//if yes then move player
+		this.playerController.move(direction);
+	}
+	
 }
