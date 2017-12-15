@@ -40,7 +40,7 @@ public class ViewFrame{
 		ViewFrame.pane = new Pane();
 	}
 
-	public Scene drawFrame(Stage stage, int nbrX, int nbrY) {
+	public void drawFrame(Stage stage, int nbrX, int nbrY) {
 		scene = new Scene(pane, ((WALL+CELL)*nbrX+WALL)*SPAN, ((WALL+CELL)*nbrY+WALL)*SPAN);
 		scene.setFill(SCENE_COLOR);
 
@@ -75,7 +75,6 @@ public class ViewFrame{
 				pane.getChildren().add(square);
 			}
 		}
-		return scene;
 	}
 
 
@@ -105,7 +104,7 @@ public class ViewFrame{
 		stage.setTitle( "The MaZe!!" );
 
 		//Draw Labyrinth
-		Scene scene = drawFrame(stage, width,height);
+		drawFrame(stage, width,height);
 
 		//Set canvas 
 		Canvas canvas = new Canvas( ((WALL+CELL)*width+WALL)*SPAN, ((WALL+CELL)*height+WALL)*SPAN );
