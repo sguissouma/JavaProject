@@ -91,6 +91,8 @@ public class Controller {
 		
 		if (!(e == null || (e.getDoorType() != DoorType.NONE))) {
 			this.playerController.move(direction);
+		}else if (!(e == null) && e.getDoorType() == DoorType.OPENED) {
+			this.playerController.move(direction);
 		}
 		
 	}

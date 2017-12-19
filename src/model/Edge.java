@@ -17,9 +17,11 @@ public class Edge extends DefaultEdge implements Comparable<Edge>{
 		super();
 		setDoorType(DoorType.NONE);
 	}
-	/* Constructeur par défaut */
 	
-	
+	public Edge (DoorType type) {
+		super();
+		setDoorType(type);
+	}
 	
 	public Vertex getSource(){
 		return (Vertex) super.getSource();
@@ -28,7 +30,6 @@ public class Edge extends DefaultEdge implements Comparable<Edge>{
 	public Vertex getTarget() {
 		return (Vertex) super.getTarget();
 	}
-	
 	
 	@Override
 	public int compareTo(Edge o) {
@@ -48,7 +49,7 @@ public class Edge extends DefaultEdge implements Comparable<Edge>{
 		return doortype;
 	}
 
-	private void setDoorType(DoorType doorType) {
+	public void setDoorType(DoorType doorType) {
 		this.doortype = doorType;
 	}
 }

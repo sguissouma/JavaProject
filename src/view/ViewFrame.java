@@ -39,11 +39,11 @@ public class ViewFrame{
 
 	private PlayerSprite playerSprite;
 	private ArrayList<BadBoySprite> badBoySpriteList = new ArrayList<BadBoySprite>();
-
+	
 	public ViewFrame() {
+		
 		//create player sprite
 		this.playerSprite = PlayerFactory.getPlayerView();
-		//assign labyrinth controller
 		Controller.getInstance().setPlayerController(this.playerSprite.getController());
 		
 		//create bad guys
@@ -150,12 +150,11 @@ public class ViewFrame{
 
 	public void start(Stage stage, Labyrinth model) {
 		
-
-		
 		stage.setTitle( "The MaZe!!" );
 
 		//Draw Labyrinth
 		drawFrame(stage, Labyrinth.size, Labyrinth.size);
+		//Draw Graph
 		drawGraph(model.getGraph());
 		
 		//Set canvas 
@@ -178,10 +177,7 @@ public class ViewFrame{
 			badSprite.setImage("/images/bad.png");
 			badSprite.render(gc);
 		}
-		
-
-		//TODO
-		
+						
 		LongValue lastNanoTime = new LongValue(System.nanoTime());
 
 		//Animation Loop
@@ -195,13 +191,11 @@ public class ViewFrame{
 
 				//playerSprite.update(elapsedTime);
 
-				
 				//Redraw elements
 				gc.clearRect(0, 0, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN );
 				playerSprite.render(gc);
 				for(BadBoySprite badSprite : badBoySpriteList) 
 					badSprite.render(gc);
-				
 			}
 		}.start();
 

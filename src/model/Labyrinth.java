@@ -17,7 +17,8 @@ public class Labyrinth {
 	public static final int LEFT_BORDER = 0;
 	public static final int BOTTOM_BORDER = size;
 
-	private List<LabyrinthElement> labElem;
+	private ArrayList<LabyrinthElement> labElem;
+	private ArrayList<Door> doors;
 	
 	private Graph graph;
 	private Random rand;
@@ -36,24 +37,23 @@ public class Labyrinth {
 		graph.addVertex(v);
 		rand = new Random();
 		
+		//build random path
 		buildRandomPath(v);
+		//open random doors
+		createRandomDoors();
 	}
 
-	
 	public int getWidth() {
 		return width;
 	}
-
 
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
-
 	public int getHeight() {
 		return height;
 	}
-
 
 	public void setHeight(int height) {
 		this.height = height;
@@ -149,13 +149,13 @@ public class Labyrinth {
 	}
 	*/
 	
-	
 	/**
 	 * Simplifie arbitrairement le labyrinthe en changeant l'état de plusieurs aretes du graphe en "CLOSED_DOOR"
 	 * @since 01/12/17
 	 */
-/*	public void openDoorRandom() {
-		for (int i = 0; i <= 1000; i++) {
+	public void createRandomDoors() {
+		doors = new ArrayList<Door>();
+		for (int i = 0; i <= 5; i++) {
 			Vertex vertex = graph.randomVertex();		
 			if (vertex != null) {
 				Directions dir = Directions.randomDirection();			
@@ -163,30 +163,30 @@ public class Labyrinth {
 					Vertex vertex2 = graph.getVertexByDir(vertex, dir);
 					if(vertex2 != null) {
 						Edge edge = graph.getEdge(vertex2, vertex);					
-						if(edge == null) {											
-							graph.addEdge(vertex, vertex2, new Edge(DoorType.OPENED_DOOR));
+						if(edge == null) {					
+							Edge doorEdge = new Edge(DoorType.OPENED);
+							graph.addEdge(vertex, vertex2, doorEdge);
+							doors.add(new Door(doorEdge));	
 						}
 					}
 				}
 			}
 		}
-	}*/
+	}
+	
+	public ArrayList<Door> getDoorList(){
+		return this.doors;
+	}
 	
 	/**
 	 * Ferme arbitrairement une porte
 	 */
-	/*public void closeDoorRandom() {
-		Edge edge = graph.randomEdge();
-		closeDoor(edge);
+	public void closeDoorRandom() {
+		Random random = new Random();
+	    int index = random.nextInt(doors.size());
+	    doors.get(index).closeDoor();
 	}
-
-
-	private void closeDoor(Edge edge) {
-		edge.setDoorType(DoorType.CLOSED_DOOR);		
-	}
-	*/
-	//prédicats de détection d'état de porte
-	
+		
 	/**
 	 * VÃ©rifie si il n'y a pas de liaison direct entre 2 sommets 
 	 * @param v sommet d'origine
