@@ -1,6 +1,5 @@
 package model;
 
-import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +7,10 @@ import java.util.Queue;
 import java.util.Random;
 import java.util.Vector;
 
+import model.Graph;
+
 public class Labyrinth {
-	public static final int size = 5;
+	public static final int size = 15;
 	
 	public static final int TOP_BORDER = 0;
 	public static final int RIGHT_BORDER = size;
@@ -57,7 +58,9 @@ public class Labyrinth {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-
+	public Graph getGraph() {
+		return graph;
+	}
 
 	private void buildRandomPath(Vertex vertex) {
 
@@ -100,7 +103,7 @@ public class Labyrinth {
 					graph.addVertex(next);
 					//System.out.println(next.toString());
 					//System.out.println(vertex.toString());
-					graph.addEdge(vertex, next, new Edge(DoorType.CLOSED_DOOR));
+					graph.addEdge(vertex, next, new Edge());
 					buildRandomPath(next); 
 				}
 			} 
@@ -108,7 +111,7 @@ public class Labyrinth {
 		}
 	}
 
-	public void printGraph() {
+/*	public void printGraph() {
 		System.out.println(graph.toString());
 		try {
 			graph.toDot("Laby.dot");
@@ -116,7 +119,7 @@ public class Labyrinth {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	
 	
@@ -143,7 +146,7 @@ public class Labyrinth {
 		labElem.remove(element);
 	}
 	
-	public void printGraph(String s) {
+/*	public void printGraph(String s) {
 		System.out.println(graph.toString()+", NB ARETES : " +graph.edgeSet().size());
 		try {
 			graph.toDot(s);
@@ -152,14 +155,14 @@ public class Labyrinth {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	
 	
 	/**
 	 * Simplifie arbitrairement le labyrinthe en changeant l'état de plusieurs aretes du graphe en "CLOSED_DOOR"
 	 * @since 01/12/17
 	 */
-	public void openDoorRandom() {
+/*	public void openDoorRandom() {
 		for (int i = 0; i <= 1000; i++) {
 			Vertex vertex = graph.randomVertex();		
 			if (vertex != null) {
@@ -175,21 +178,21 @@ public class Labyrinth {
 				}
 			}
 		}
-	}
+	}*/
 	
 	/**
 	 * Ferme arbitrairement une porte
 	 */
-	public void closeDoorRandom() {
+	/*public void closeDoorRandom() {
 		Edge edge = graph.randomEdge();
 		closeDoor(edge);
 	}
 
 
 	private void closeDoor(Edge edge) {
-		edge.setDoor(DoorType.CLOSED_DOOR);		
+		edge.setDoorType(DoorType.CLOSED_DOOR);		
 	}
-	
+	*/
 	//prédicats de détection d'état de porte
 	
 	/**
@@ -206,22 +209,22 @@ public class Labyrinth {
 	
 	public boolean isClosed(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
-		return ((edge == null) || (edge.getDoor() == DoorType.CLOSED_DOOR));
+		return ((edge == null) || (edge.getDoorType() == DoorType.CLOSED));
 	}
 	
 	public boolean isOpened(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
-		return ((edge != null) && (edge.getDoor() != DoorType.CLOSED_DOOR));
+		return ((edge != null) && (edge.getDoorType() != DoorType.CLOSED));
 	}
 	
 	public boolean isClosedDoor(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
-		return ((edge != null) && (edge.getDoor() == DoorType.CLOSED_DOOR));
+		return ((edge != null) && (edge.getDoorType() == DoorType.CLOSED));
 	}
 	
 	public boolean isOpenedDoor(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
-		return ((edge != null) && (edge.getDoor() == DoorType.OPENED_DOOR));
+		return ((edge != null) && (edge.getDoorType() == DoorType.OPENED));
 	}
 	
 	/**

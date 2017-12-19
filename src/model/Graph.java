@@ -15,6 +15,14 @@ import org.jgrapht.graph.SimpleGraph;
 @SuppressWarnings("serial")
 public class Graph extends SimpleGraph<Vertex,Edge>{
 
+	
+	public static final int WIDTH = 16;
+	/**
+	 * Hauteur du Graph
+	 */
+	public static final int HEIGHT = 16;
+	
+	
 	public Graph() {
 		super(Edge.class);
 	}
@@ -74,7 +82,7 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 			v1 = this.getEdgeSource(e);
 			v2 = this.getEdgeTarget(e);
 			
-			buf = "V_" + v1.getX() + "_" + v1.getY() + " -- " + "V_" + v2.getX() + "_" + v2.getY() +" [label=\""+e.getDoor().toString() +"\"];\n";						
+			buf = "V_" + v1.getX() + "_" + v1.getY() + " -- " + "V_" + v2.getX() + "_" + v2.getY() +" [label=\""+e.getDoorType().toString() +"\"];\n";						
 			w.write(buf);
 		}
 		
@@ -183,7 +191,13 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	}
 	
 	
-	
+	// retourne le vertex dans le graph équivalent
+	public Vertex getVertex(int x, int y) {
+		for (Vertex v : vertexSet())
+			if (v.getX() == x && v.getY() == y)
+				return v;
+		return null;
+	}
 
 
 	

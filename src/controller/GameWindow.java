@@ -2,7 +2,6 @@ package controller;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.Labyrinth;
 import view.ViewFrame;
 
 public class GameWindow extends Application {
@@ -11,7 +10,7 @@ public class GameWindow extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		view.start(primaryStage, Labyrinth.size, Labyrinth.size);
+		view.start(primaryStage, Controller.getLabyrinth());
 	}
 
 	public void stop() {
@@ -21,8 +20,8 @@ public class GameWindow extends Application {
 
 	public GameWindow() {
 		super();
-		view = new ViewFrame();
 		Controller.getInstance();
+		view = new ViewFrame();
 	}
 	
 	public void open() {

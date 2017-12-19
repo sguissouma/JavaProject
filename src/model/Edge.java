@@ -3,7 +3,6 @@ import org.jgrapht.graph.DefaultEdge;
 
 public class Edge extends DefaultEdge implements Comparable<Edge>{
 	
-
 	/**
 	 * 
 	 */
@@ -11,19 +10,15 @@ public class Edge extends DefaultEdge implements Comparable<Edge>{
 	/**
 	 * 
 	 */
-	private DoorType door; 
+	private DoorType doortype; 
 	
-	
-	public Edge(DoorType doorType) {
-		super();
-		this.door = doorType;
-	}
-	/* Constructeur par défaut */
 	
 	public Edge() {
 		super();
-		this.door = DoorType.CORRIDOR;
+		setDoorType(DoorType.NONE);
 	}
+	/* Constructeur par défaut */
+	
 	
 	
 	public Vertex getSource(){
@@ -49,11 +44,11 @@ public class Edge extends DefaultEdge implements Comparable<Edge>{
 		return s;
 	}
 	
-	public void setDoor(DoorType doorType){
-		this.door = doorType;
+	public DoorType getDoorType() {
+		return doortype;
 	}
-	
-	public DoorType getDoor() {
-		return this.door;
+
+	private void setDoorType(DoorType doorType) {
+		this.doortype = doorType;
 	}
 }

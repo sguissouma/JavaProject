@@ -1,9 +1,15 @@
 package view;
 
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import model.BadBoyFactory;
 import model.Directions;
+import model.DoorType;
+import model.Edge;
+import model.Graph;
+import model.Labyrinth;
 import model.PlayerFactory;
+import java.util.ArrayList;
+import java.util.Random;
 import controller.Controller;
 import javafx.event.EventHandler;
 import javafx.animation.AnimationTimer;
@@ -15,7 +21,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Box;
 import javafx.scene.shape.Rectangle;
 
 
@@ -26,17 +31,30 @@ public class ViewFrame{
 	static final int CELL = 9;
 	public static final Paint WALL_COLOR = Color.BURLYWOOD;
 	public static final Paint SCENE_COLOR = Color.WHITE;
+	
+	public static final int BAD_BOYS_NUMBER = 3;
 
 	private Scene scene;
 	private static Pane pane;
 
 	private PlayerSprite playerSprite;
+	private ArrayList<BadBoySprite> badBoySpriteList = new ArrayList<BadBoySprite>();
 
 	public ViewFrame() {
 		//create player sprite
 		this.playerSprite = PlayerFactory.getPlayerView();
 		//assign labyrinth controller
 		Controller.getInstance().setPlayerController(this.playerSprite.getController());
+		
+		//create bad guys
+		for(int n = 0 ; n< BAD_BOYS_NUMBER; n++) {
+			int x = new Random().nextInt(Labyrinth.size);
+			int y = new Random().nextInt(Labyrinth.size);
+			BadBoySprite sprite = BadBoyFactory.getBadBoyWithPosition(x, y);
+			this.badBoySpriteList.add(sprite);
+			Controller.getInstance().addBadBoyController(sprite.getController());
+		}
+		
 		ViewFrame.pane = new Pane();
 	}
 
@@ -49,8 +67,6 @@ public class ViewFrame{
 
 		square = new Rectangle(0,0,SPAN*(nbrX*(CELL+WALL)+WALL),WALL*SPAN);
 		square.setFill(WALL_COLOR);
-
-		//pane.getChildrenUnmodifiable().add(square);
 
 		pane.getChildren().add(square);
 
@@ -77,7 +93,6 @@ public class ViewFrame{
 		}
 	}
 
-
 	public static void drawWall(int xs, int	ys,	int	xt, int	yt, Paint color){
 		int	x = 0, y = 0, xspan = 0, yspan = 0;
 		if(ys==yt){
@@ -91,23 +106,57 @@ public class ViewFrame{
 		}
 		else if(xs==xt){
 			x = (WALL+ xs*(WALL+CELL))*SPAN;
-			y = ((WALL+CELL) + (WALL+CELL)*((int)(ys+yt)/2))*SPAN;
-			xspan = CELL*SPAN;
-			yspan = WALL*SPAN;
+			y = ((WALL+CELL) + (WALL+CELL)*((int)(ys+yt)/2)) * SPAN;
+			xspan = CELL*SPAN; //
+			yspan = WALL*SPAN; 
 			Rectangle square = new Rectangle(x, y, xspan, yspan);
 			square.setFill(color);
 			pane.getChildren().add(square);
 		}
 	}
+	
+	public void drawGraph(Graph g) {
+		Edge e;
+		for (int x = 0; x < Graph.WIDTH; x++) {
+			for (int y = 0; y < Graph.HEIGHT; y++) {
 
-	public void start(Stage stage, int width, int height) {
+				if (x + 1 < Graph.WIDTH) {
+					e = g.getEdge(g.getVertex(x, y), g.getVertex(x + 1, y));
+					if (e == null || (e.getDoorType() != DoorType.NONE)) {
+						drawWall(x, y, x + 1, y, WALL_COLOR);
+						if (e != null && (e.getDoorType() == DoorType.OPENED)) {
+							drawWall(x, y, x + 1, y, Color.RED);
+						} else if (e != null && (e.getDoorType() == DoorType.CLOSED)) {
+							drawWall(x, y, x + 1, y, Color.GREEN);
+						}
+					}
+				}
+
+				if (y + 1 < Graph.HEIGHT) {
+					e = g.getEdge(g.getVertex(x, y), g.getVertex(x, y + 1));
+					if (e == null || (e.getDoorType() != DoorType.NONE)) {
+						drawWall(x, y, x, y + 1, WALL_COLOR);
+						if (e != null && (e.getDoorType() == DoorType.OPENED)) {
+							drawWall(x, y, x, y + 1, Color.GREEN);
+						} else if (e != null && (e.getDoorType() == DoorType.CLOSED)) {
+							drawWall(x, y, x + 1, y, Color.RED);
+						}
+					}
+
+				}
+			}
+		}
+	}
+
+	public void start(Stage stage, Labyrinth model) {
 		stage.setTitle( "The MaZe!!" );
 
 		//Draw Labyrinth
-		drawFrame(stage, width,height);
-
+		drawFrame(stage, Labyrinth.size, Labyrinth.size);
+		drawGraph(model.getGraph());
+		
 		//Set canvas 
-		Canvas canvas = new Canvas( ((WALL+CELL)*width+WALL)*SPAN, ((WALL+CELL)*height+WALL)*SPAN );
+		Canvas canvas = new Canvas( ((WALL+CELL)*Labyrinth.size+WALL)*SPAN, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN );
 		pane.getChildren().add(canvas);
 
 		//Set keyboard events
@@ -134,7 +183,7 @@ public class ViewFrame{
 
 				//playerSprite.update(elapsedTime);
 
-				gc.clearRect(0, 0, ((WALL+CELL)*width+WALL)*SPAN, ((WALL+CELL)*height+WALL)*SPAN );
+				gc.clearRect(0, 0, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN );
 				playerSprite.render(gc);
 			}
 		}.start();
@@ -142,7 +191,6 @@ public class ViewFrame{
 
 		stage.show();
 	}
-
 
 	private void keyboarEvents(Scene theScene){
 		theScene.setOnKeyPressed(
@@ -165,8 +213,6 @@ public class ViewFrame{
 					}
 				});
 	}
-
-
 
 	private class LongValue
 	{

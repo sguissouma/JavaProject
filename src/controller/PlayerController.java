@@ -14,6 +14,10 @@ public class PlayerController {
 		this.player = player;
 	}
 	
+	public Player getPlayer() {
+		return player;
+	}
+	
 	public void move(Directions direction){
 		if (direction == Directions.WEST){
 			this.player.setPosition(this.player.getPosition().x - 1, this.player.getPosition().y);
