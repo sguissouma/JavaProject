@@ -26,7 +26,7 @@ public class Labyrinth {
 	private int height;
 	
 	public Labyrinth() {
-		this(new Vertex(0,0));
+		this(new Vertex(0,0,0));
 	}
 	
 	public Labyrinth(Vertex v) {
@@ -58,6 +58,7 @@ public class Labyrinth {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+	
 	public Graph getGraph() {
 		return graph;
 	}
@@ -79,35 +80,26 @@ public class Labyrinth {
 		//pour chacune de ces directions, on avance en profondeur d'abord
 		for(int i=0;i<4; ++i) {
 			Directions dir = directions[i];
-			if ((vertex.inBorders(dir,this))) {
+			if ((vertex.inBorders(dir,this)) && graph.doesntExist(vertex, dir)) {
 				int x = vertex.getX();
 				int y = vertex.getY();
 				int xt = 0;
 				int yt = 0;
+				
 				switch(dir) {
-				case NORTH : xt= x;
-				yt= y-1;
-				break;
-				case SOUTH : xt=x;
-				yt= y+1;
-				break;
-				case EAST : xt =x+1;
-				yt=y;
-				break;
-				case WEST : xt=x-1;
-				yt=y;
-				break;				
+					case NORTH : xt = x; yt = y-1; break;
+					case SOUTH : xt = x; yt = y+1; break;
+					case EAST : xt = x+1; yt = y; break;
+					case WEST : xt = x-1; yt = y; break;				
 				}
-				Vertex next = new Vertex(xt, yt);
+				
+				Vertex next = new Vertex( xt, yt, vertex.getNbr()+1);
 				if(!graph.contains(next)){
 					graph.addVertex(next);
-					//System.out.println(next.toString());
-					//System.out.println(vertex.toString());
 					graph.addEdge(vertex, next, new Edge());
 					buildRandomPath(next); 
 				}
 			} 
-			
 		}
 	}
 

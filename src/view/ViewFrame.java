@@ -32,7 +32,7 @@ public class ViewFrame{
 	public static final Paint WALL_COLOR = Color.BURLYWOOD;
 	public static final Paint SCENE_COLOR = Color.WHITE;
 	
-	public static final int BAD_BOYS_NUMBER = 3;
+	public static final int BAD_BOYS_NUMBER = 4;
 
 	private Scene scene;
 	private static Pane pane;
@@ -47,7 +47,7 @@ public class ViewFrame{
 		Controller.getInstance().setPlayerController(this.playerSprite.getController());
 		
 		//create bad guys
-		for(int n = 0 ; n< BAD_BOYS_NUMBER; n++) {
+		for(int n = 0 ; n < BAD_BOYS_NUMBER; n++) {
 			int x = new Random().nextInt(Labyrinth.size);
 			int y = new Random().nextInt(Labyrinth.size);
 			BadBoySprite sprite = BadBoyFactory.getBadBoyWithPosition(x, y);
@@ -149,6 +149,9 @@ public class ViewFrame{
 	}
 
 	public void start(Stage stage, Labyrinth model) {
+		
+
+		
 		stage.setTitle( "The MaZe!!" );
 
 		//Draw Labyrinth
@@ -165,11 +168,20 @@ public class ViewFrame{
 		//Create Graphic context
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		//Set player sprite
+		
+		//Set initial position player sprite
 		playerSprite.setImage("/images/player.png");
-		playerSprite.setPosition(SPAN*2, SPAN*2);
 		playerSprite.render(gc);
+		
+		//Set initial position badboys sprites
+		for(BadBoySprite badSprite : badBoySpriteList) {
+			badSprite.setImage("/images/bad.png");
+			badSprite.render(gc);
+		}
+		
 
+		//TODO
+		
 		LongValue lastNanoTime = new LongValue(System.nanoTime());
 
 		//Animation Loop
@@ -183,8 +195,13 @@ public class ViewFrame{
 
 				//playerSprite.update(elapsedTime);
 
+				
+				//Redraw elements
 				gc.clearRect(0, 0, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN );
 				playerSprite.render(gc);
+				for(BadBoySprite badSprite : badBoySpriteList) 
+					badSprite.render(gc);
+				
 			}
 		}.start();
 
@@ -209,6 +226,12 @@ public class ViewFrame{
 						}
 						if (e.getCode() == KeyCode.DOWN) {
 							Controller.getInstance().movePlayer(Directions.SOUTH);
+						}
+						if (e.getCode() == KeyCode.S) {
+							Controller.getInstance().startBadBoysSearch();
+						}
+						if (e.getCode() == KeyCode.D) {
+							Controller.getInstance().stopBadBoysSearch();
 						}
 					}
 				});

@@ -21,10 +21,15 @@ public class BadBoySprite extends Sprite implements Observer {
 	public BadBoyController getController() {
 		return this.controller;
 	}
-
+	
+	@Override
+	public void setPosition(double x, double y) {
+		super.setPosition(x*44 + (ViewFrame.SPAN*2), y*44 + (ViewFrame.SPAN*2));
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
-		this.setPosition(badboy.getPosition().x*44 + (ViewFrame.SPAN*2), badboy.getPosition().y*44 + ViewFrame.SPAN*2);
+		this.setPosition(badboy.getPosition().x, badboy.getPosition().y);
 	}
 }
 

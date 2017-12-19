@@ -10,14 +10,6 @@ public class Vertex implements Comparable<Vertex>{
 	 */
 	private int nbr;
 	
-	
-	public Vertex(int x, int y) {
-		super();
-		this.x = x;
-		this.y = y;
-		this.setNbr(0); 
-	}
-	
 	public Vertex(int x, int y, int n) {
 		this.x=x;
 		this.y=y;
@@ -106,7 +98,7 @@ public class Vertex implements Comparable<Vertex>{
 			yt =y;
 			break;
 		}
-		Vertex res = new Vertex(xt, yt);
+		Vertex res = l.getGraph().getVertex(xt, yt); //new Vertex(xt, yt, 0);
 		return res;
 	}
 	

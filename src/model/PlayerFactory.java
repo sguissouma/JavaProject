@@ -9,6 +9,7 @@ public class PlayerFactory {
 		
 		//Create View
 		PlayerSprite playerView = new PlayerSprite();
+		playerView.setPosition(0, 0);
 		
 		//Create Model
 		Player player = new Player(0,0);

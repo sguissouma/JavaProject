@@ -1,26 +1,20 @@
 package model;
 
-
-
 import java.io.File;
-
 import java.io.FileWriter;
 import java.io.IOException;
-
-import java.util.ArrayList;
 import java.util.Random;
-
 import org.jgrapht.graph.SimpleGraph;
 
 @SuppressWarnings("serial")
 public class Graph extends SimpleGraph<Vertex,Edge>{
 
 	
-	public static final int WIDTH = 16;
+	public static final int WIDTH = 15;
 	/**
 	 * Hauteur du Graph
 	 */
-	public static final int HEIGHT = 16;
+	public static final int HEIGHT = 15;
 	
 	
 	public Graph() {
@@ -43,15 +37,14 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	 * @return
 	 */
 	public boolean contains(Vertex vertex) {
-		ArrayList<Vertex> v = new ArrayList<Vertex>(this.vertexSet());
-		//System.out.println("TEST :" + v);
-		for(Vertex v0 : v) {
-			if(v0.equals(vertex))
+		for(Vertex v : this.vertexSet()) {
+			if (v.getX() == vertex.getX() && v.getY() == vertex.getY())
 				return true;
 		}
 		return false;
 	}
-
+	
+	
 	
 	/*
 	 * 	graph MyGraph{
@@ -131,15 +124,7 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 			break;
 		}
 		
-		Vertex vTmp = new Vertex(xt, yt);
-		
-		if(this.contains(vTmp)) {			
-			for (Vertex v : this.vertexSet()) {				
-				if(v.equals(vTmp)) {
-					res=v;					
-				}
-			}
-		}
+		res = getVertex(xt, yt);
 		return res;
 	}
 
@@ -178,15 +163,15 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 			break;
 		case EAST:
 			xt = vertex.getX()+1;
-			yt =vertex.getY();
+			yt = vertex.getY();
 			break;
 
 		default:
-			xt =vertex.getX();
-			yt =vertex.getY();
+			xt = vertex.getX();
+			yt = vertex.getY();
 			break;
 		}
-		vRes = new Vertex(xt,yt);		
+		vRes = this.getVertex(xt, yt); 	
 		return this.getEdge(vertex, vRes);
 	}
 	
@@ -199,6 +184,13 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 		return null;
 	}
 
-
+	public boolean isConnected(Vertex vertex, Vertex next) {
+		return this.containsEdge(vertex, next);
+	}
+	
+	public boolean doesntExist(Vertex vertex, Directions dir) {
+		Vertex v = getVertexByDir(vertex, dir); 
+		return v == null ;
+	}
 	
 }

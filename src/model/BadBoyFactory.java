@@ -9,6 +9,7 @@ public class BadBoyFactory {
 		
 		//Create View
 		BadBoySprite badBoyView = new BadBoySprite();
+		badBoyView.setPosition(x, y);
 		
 		//Create Model
 		BadBoy badboy = new BadBoy(x,y);
