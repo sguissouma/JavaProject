@@ -18,7 +18,7 @@ public class Labyrinth {
 	public static final int BOTTOM_BORDER = size;
 
 	private ArrayList<LabyrinthElement> labElem;
-	private ArrayList<Door> doors;
+	private ArrayList<Edge> doors;
 	
 	private Graph graph;
 	private Random rand;
@@ -134,7 +134,7 @@ public class Labyrinth {
 		return null;
 		
 	}
-	public void removeElement(ILabyrinthElements element) {
+	public void removeElement(LabyrinthElement element) {
 		labElem.remove(element);
 	}
 	
@@ -154,7 +154,7 @@ public class Labyrinth {
 	 * @since 01/12/17
 	 */
 	public void createRandomDoors() {
-		doors = new ArrayList<Door>();
+		doors = new ArrayList<Edge>();
 		for (int i = 0; i <= 5; i++) {
 			Vertex vertex = graph.randomVertex();		
 			if (vertex != null) {
@@ -166,7 +166,7 @@ public class Labyrinth {
 						if(edge == null) {					
 							Edge doorEdge = new Edge(DoorType.OPENED);
 							graph.addEdge(vertex, vertex2, doorEdge);
-							doors.add(new Door(doorEdge));	
+							doors.add(doorEdge);	
 						}
 					}
 				}
@@ -174,18 +174,32 @@ public class Labyrinth {
 		}
 	}
 	
-	public ArrayList<Door> getDoorList(){
+	public ArrayList<Edge> getDoorList(){
 		return this.doors;
 	}
 	
 	/**
 	 * Ferme arbitrairement une porte
 	 */
-	public void closeDoorRandom() {
+	/*public void closeDoorRandom() {
 		Random random = new Random();
 	    int index = random.nextInt(doors.size());
 	    doors.get(index).closeDoor();
+	}*/
+	
+	
+	public void closeDoor(Edge edge) {
+		edge.setDoorType(DoorType.CLOSED);		
 	}
+	
+	public void openDoor(Edge edge) {
+		edge.setDoorType(DoorType.OPENED);		
+	}
+
+	public void closeDoorRandom (){ 
+	Edge edge = graph.randomEdge(); 
+	closeDoor(edge);
+}
 		
 	/**
 	 * VÃ©rifie si il n'y a pas de liaison direct entre 2 sommets 

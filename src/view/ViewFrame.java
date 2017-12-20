@@ -2,14 +2,17 @@ package view;
 
 import javafx.stage.Stage;
 import model.BadBoyFactory;
+import model.ButtonFactory;
+import model.ButtonType;
+import model.CandyFactory;
 import model.Directions;
 import model.DoorType;
 import model.Edge;
+import model.ExitDoorFactory;
 import model.Graph;
 import model.Labyrinth;
 import model.PlayerFactory;
 import java.util.ArrayList;
-import java.util.Random;
 import controller.Controller;
 import javafx.event.EventHandler;
 import javafx.animation.AnimationTimer;
@@ -39,6 +42,9 @@ public class ViewFrame{
 
 	private PlayerSprite playerSprite;
 	private ArrayList<BadBoySprite> badBoySpriteList = new ArrayList<BadBoySprite>();
+	private ArrayList<ButtonSprite> buttonSpriteList = new ArrayList<ButtonSprite>();
+	private ArrayList<CandySprite> candySpriteList = new ArrayList<CandySprite>();
+	private ExitSprite exitSprite = new ExitSprite();
 	
 	public ViewFrame() {
 		
@@ -48,12 +54,26 @@ public class ViewFrame{
 		
 		//create bad guys
 		for(int n = 0 ; n < BAD_BOYS_NUMBER; n++) {
-			int x = new Random().nextInt(Labyrinth.size);
-			int y = new Random().nextInt(Labyrinth.size);
-			BadBoySprite sprite = BadBoyFactory.getBadBoyWithPosition(x, y);
+			BadBoySprite sprite = BadBoyFactory.getBadBoyWithPosition();
 			this.badBoySpriteList.add(sprite);
 			Controller.getInstance().addBadBoyController(sprite.getController());
 		}
+		
+		//create buttons
+		for(Edge e : Controller.getLabyrinth().getDoorList()) {
+			ButtonSprite btn1 = ButtonFactory.getButton(ButtonType.OPENER, e);
+			ButtonSprite btn2 = ButtonFactory.getButton(ButtonType.CLOSER, e);
+			buttonSpriteList.add(btn1);
+			buttonSpriteList.add(btn2);
+		}
+		
+		//create bad guys
+		for(int n = 0 ; n < 6; n++) {
+			CandySprite sprite = CandyFactory.getCandySprite();
+			this.candySpriteList.add(sprite);
+		}
+		
+		this.exitSprite = ExitDoorFactory.getExitDoorView();
 		
 		ViewFrame.pane = new Pane();
 	}
@@ -168,16 +188,25 @@ public class ViewFrame{
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
 		
+		//Set initial position badboys sprites
+		for(ButtonSprite buttonSprite : buttonSpriteList) {
+			buttonSprite.render(gc);
+		}
+		
 		//Set initial position player sprite
-		playerSprite.setImage("/images/player.png");
 		playerSprite.render(gc);
 		
 		//Set initial position badboys sprites
 		for(BadBoySprite badSprite : badBoySpriteList) {
-			badSprite.setImage("/images/bad.png");
 			badSprite.render(gc);
 		}
-						
+		
+		for(CandySprite candySprite : candySpriteList) {
+			candySprite.render(gc);
+		}
+		
+		exitSprite.render(gc);
+		
 		LongValue lastNanoTime = new LongValue(System.nanoTime());
 
 		//Animation Loop
@@ -193,9 +222,20 @@ public class ViewFrame{
 
 				//Redraw elements
 				gc.clearRect(0, 0, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN );
+				
+				for(ButtonSprite buttonSprite : buttonSpriteList) 
+					buttonSprite.render(gc);
+				
 				playerSprite.render(gc);
+				
 				for(BadBoySprite badSprite : badBoySpriteList) 
 					badSprite.render(gc);
+				
+				for(CandySprite candySprite : candySpriteList) 
+					candySprite.render(gc);
+				
+				exitSprite.render(gc);
+				
 			}
 		}.start();
 

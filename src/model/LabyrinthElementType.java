@@ -8,5 +8,5 @@ package model;
  *
  */
 public enum LabyrinthElementType {
-	PLAYER, BADBOY, CANDY, BUTTON, DOOR;
+	PLAYER, BADBOY, CANDY, BUTTON, EXIT;
 }
