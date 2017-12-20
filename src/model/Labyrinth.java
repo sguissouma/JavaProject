@@ -11,7 +11,7 @@ import model.Graph;
 
 public class Labyrinth {
 	public static final int size = 15;
-	
+
 	public static final int TOP_BORDER = 0;
 	public static final int RIGHT_BORDER = size;
 	public static final int LEFT_BORDER = 0;
@@ -19,28 +19,32 @@ public class Labyrinth {
 
 	private ArrayList<LabyrinthElement> labElem;
 	private ArrayList<Edge> doors;
-	
+
 	private Graph graph;
 	private Random rand;
-	
+
 	private int width;
 	private int height;
-	
+
 	public Labyrinth() {
 		this(new Vertex(0,0,0));
 	}
-	
+
 	public Labyrinth(Vertex v) {
-		width = size;
-		height = size;
 		graph = new Graph();
 		graph.addVertex(v);
+		
+		width = size;
+		height = size;
 		rand = new Random();
+		doors = new ArrayList<Edge>();
 		
 		//build random path
 		buildRandomPath(v);
 		//open random doors
 		createRandomDoors();
+		
+		labElem = new ArrayList<LabyrinthElement>();
 	}
 
 	public int getWidth() {
@@ -58,7 +62,7 @@ public class Labyrinth {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	
+
 	public Graph getGraph() {
 		return graph;
 	}
@@ -85,14 +89,14 @@ public class Labyrinth {
 				int y = vertex.getY();
 				int xt = 0;
 				int yt = 0;
-				
+
 				switch(dir) {
-					case NORTH : xt = x; yt = y-1; break;
-					case SOUTH : xt = x; yt = y+1; break;
-					case EAST : xt = x+1; yt = y; break;
-					case WEST : xt = x-1; yt = y; break;				
+				case NORTH : xt = x; yt = y-1; break;
+				case SOUTH : xt = x; yt = y+1; break;
+				case EAST : xt = x+1; yt = y; break;
+				case WEST : xt = x-1; yt = y; break;				
 				}
-				
+
 				Vertex next = new Vertex( xt, yt, vertex.getNbr()+1);
 				if(!graph.contains(next)){
 					graph.addVertex(next);
@@ -103,7 +107,7 @@ public class Labyrinth {
 		}
 	}
 
-/*	public void printGraph() {
+	/*	public void printGraph() {
 		System.out.println(graph.toString());
 		try {
 			graph.toDot("Laby.dot");
@@ -112,33 +116,40 @@ public class Labyrinth {
 			e.printStackTrace();
 		}
 	}*/
-	
-	
+
+
+	public void addElement(LabyrinthElement element) {
+		this.labElem.add(element);
+	}
 	
 	public List<LabyrinthElement> getElementsByType(LabyrinthElementType type) {
 		List<LabyrinthElement> res = new ArrayList<LabyrinthElement>();
-		
+
 		for(LabyrinthElement i : labElem) {
 			if(i.getType() == type) {
 				res.add(i);
 			}
 		}
 		return res;
-		
 	}
+	
 	public LabyrinthElement getElementAt(int x, int y) {
 		for(LabyrinthElement i : labElem) {
 			if(i.getPosition().x == x && i.getPosition().y == y)
 				return i;
 		}
 		return null;
-		
 	}
+	
 	public void removeElement(LabyrinthElement element) {
 		labElem.remove(element);
 	}
 	
-/*	public void printGraph(String s) {
+	public void removeAllElements() {
+		labElem.clear();
+	}
+
+	/*	public void printGraph(String s) {
 		System.out.println(graph.toString()+", NB ARETES : " +graph.edgeSet().size());
 		try {
 			graph.toDot(s);
@@ -147,8 +158,8 @@ public class Labyrinth {
 			e.printStackTrace();
 		}
 	}
-	*/
-	
+	 */
+
 	/**
 	 * Simplifie arbitrairement le labyrinthe en changeant l'état de plusieurs aretes du graphe en "CLOSED_DOOR"
 	 * @since 01/12/17
@@ -173,11 +184,11 @@ public class Labyrinth {
 			}
 		}
 	}
-	
+
 	public ArrayList<Edge> getDoorList(){
 		return this.doors;
 	}
-	
+
 	/**
 	 * Ferme arbitrairement une porte
 	 */
@@ -186,21 +197,21 @@ public class Labyrinth {
 	    int index = random.nextInt(doors.size());
 	    doors.get(index).closeDoor();
 	}*/
-	
-	
+
+
 	public void closeDoor(Edge edge) {
 		edge.setDoorType(DoorType.CLOSED);		
 	}
-	
+
 	public void openDoor(Edge edge) {
 		edge.setDoorType(DoorType.OPENED);		
 	}
 
 	public void closeDoorRandom (){ 
-	Edge edge = graph.randomEdge(); 
-	closeDoor(edge);
-}
-		
+		Edge edge = graph.randomEdge(); 
+		closeDoor(edge);
+	}
+
 	/**
 	 * VÃ©rifie si il n'y a pas de liaison direct entre 2 sommets 
 	 * @param v sommet d'origine
@@ -212,27 +223,27 @@ public class Labyrinth {
 		Vertex tmpV = v.moveTo(dir, this);
 		return (!graph.containsEdge(v, tmpV));
 	}
-	
+
 	public boolean isClosed(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
 		return ((edge == null) || (edge.getDoorType() == DoorType.CLOSED));
 	}
-	
+
 	public boolean isOpened(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
 		return ((edge != null) && (edge.getDoorType() != DoorType.CLOSED));
 	}
-	
+
 	public boolean isClosedDoor(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
 		return ((edge != null) && (edge.getDoorType() == DoorType.CLOSED));
 	}
-	
+
 	public boolean isOpenedDoor(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
 		return ((edge != null) && (edge.getDoorType() == DoorType.OPENED));
 	}
-	
+
 	/**
 	 * 
 	 * @param source
@@ -258,7 +269,7 @@ public class Labyrinth {
 			}
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param source

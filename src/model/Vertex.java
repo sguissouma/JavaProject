@@ -9,20 +9,20 @@ public class Vertex implements Comparable<Vertex>{
 	 * profondeur du sommet dans le graphe
 	 */
 	private int nbr;
-	
+
 	public Vertex(int x, int y, int n) {
 		this.x=x;
 		this.y=y;
 		this.setNbr(n);
 	}
-	
+
 	public int getX() {
 		return x;
 	}
 	public int getY() {
 		return y;
 	}
-	
+
 
 	public int getNbr() {
 		return nbr;
@@ -31,11 +31,11 @@ public class Vertex implements Comparable<Vertex>{
 	public void setNbr(int nbr) {
 		this.nbr = nbr;
 	}
-	
+
 	public boolean equals(Vertex v) {
 		return (v.x == x && v.y == y);
 	}
-	
+
 
 	@Override
 	public int compareTo(Vertex o) {
@@ -53,16 +53,16 @@ public class Vertex implements Comparable<Vertex>{
 		}
 		return 0;
 	}
-	
+
 	public String toString() {
 		String s = "(" + x + "," + y + ") rang : "+nbr; //affichage provisoire de test sur la profondeur
 		return s;
 	}
-	
+
 	public boolean isNeighbor(Vertex o) {
 		int dx = Math.abs(x - o.x);
 		int dy = Math.abs(y - o.y);
-		
+
 		return (dx==0 && dy==1)||(dx==1 && dy==0);
 	}
 
@@ -72,7 +72,7 @@ public class Vertex implements Comparable<Vertex>{
 	public void setX(int i) {
 		x = i;
 	}
-	
+
 	public Vertex moveTo(Directions dir, Labyrinth l) {
 		int xt, yt;
 		switch (dir) {
@@ -101,7 +101,7 @@ public class Vertex implements Comparable<Vertex>{
 		Vertex res = l.getGraph().getVertex(xt, yt); //new Vertex(xt, yt, 0);
 		return res;
 	}
-	
+
 	public boolean inBorders(Directions dir, Labyrinth l) {
 		int xt, yt;
 		switch (dir) {
@@ -130,5 +130,5 @@ public class Vertex implements Comparable<Vertex>{
 		return (xt >= 0 && xt < l.getWidth() && yt >= 0 && yt < l.getHeight());
 	}
 
-	
+
 }

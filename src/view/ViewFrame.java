@@ -34,47 +34,49 @@ public class ViewFrame{
 	static final int CELL = 9;
 	public static final Paint WALL_COLOR = Color.BURLYWOOD;
 	public static final Paint SCENE_COLOR = Color.WHITE;
-	
 	public static final int BAD_BOYS_NUMBER = 4;
 
 	private Scene scene;
 	private static Pane pane;
 
 	private PlayerSprite playerSprite;
-	private ArrayList<BadBoySprite> badBoySpriteList = new ArrayList<BadBoySprite>();
-	private ArrayList<ButtonSprite> buttonSpriteList = new ArrayList<ButtonSprite>();
-	private ArrayList<CandySprite> candySpriteList = new ArrayList<CandySprite>();
-	private ExitSprite exitSprite = new ExitSprite();
-	
+	private ArrayList<BadBoySprite> badBoySpriteList;
+	private ArrayList<ButtonSprite> buttonSpriteList;
+	private ArrayList<CandySprite> candySpriteList;
+	private ExitSprite exitSprite;
+
 	public ViewFrame() {
-		
+
 		//create player sprite
 		this.playerSprite = PlayerFactory.getPlayerView();
 		Controller.getInstance().setPlayerController(this.playerSprite.getController());
-		
+
 		//create bad guys
+		badBoySpriteList = new ArrayList<BadBoySprite>();
 		for(int n = 0 ; n < BAD_BOYS_NUMBER; n++) {
 			BadBoySprite sprite = BadBoyFactory.getBadBoyWithPosition();
 			this.badBoySpriteList.add(sprite);
 			Controller.getInstance().addBadBoyController(sprite.getController());
 		}
-		
+
 		//create buttons
-		for(Edge e : Controller.getLabyrinth().getDoorList()) {
+		buttonSpriteList = new ArrayList<ButtonSprite>();
+		for(Edge e : Controller.getInstance().getLabyrinth().getDoorList()) {
 			ButtonSprite btn1 = ButtonFactory.getButton(ButtonType.OPENER, e);
 			ButtonSprite btn2 = ButtonFactory.getButton(ButtonType.CLOSER, e);
 			buttonSpriteList.add(btn1);
 			buttonSpriteList.add(btn2);
 		}
-		
+
 		//create bad guys
+		candySpriteList = new ArrayList<CandySprite>();
 		for(int n = 0 ; n < 6; n++) {
 			CandySprite sprite = CandyFactory.getCandySprite();
 			this.candySpriteList.add(sprite);
 		}
-		
+
 		this.exitSprite = ExitDoorFactory.getExitDoorView();
-		
+
 		ViewFrame.pane = new Pane();
 	}
 
@@ -134,7 +136,7 @@ public class ViewFrame{
 			pane.getChildren().add(square);
 		}
 	}
-	
+
 	public void drawGraph(Graph g) {
 		Edge e;
 		for (int x = 0; x < Graph.WIDTH; x++) {
@@ -169,14 +171,14 @@ public class ViewFrame{
 	}
 
 	public void start(Stage stage, Labyrinth model) {
-		
+
 		stage.setTitle( "The MaZe!!" );
 
 		//Draw Labyrinth
 		drawFrame(stage, Labyrinth.size, Labyrinth.size);
 		//Draw Graph
 		drawGraph(model.getGraph());
-		
+
 		//Set canvas 
 		Canvas canvas = new Canvas( ((WALL+CELL)*Labyrinth.size+WALL)*SPAN, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN );
 		pane.getChildren().add(canvas);
@@ -187,26 +189,26 @@ public class ViewFrame{
 		//Create Graphic context
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		
+		/*
 		//Set initial position badboys sprites
 		for(ButtonSprite buttonSprite : buttonSpriteList) {
 			buttonSprite.render(gc);
 		}
-		
+
 		//Set initial position player sprite
 		playerSprite.render(gc);
-		
+
 		//Set initial position badboys sprites
 		for(BadBoySprite badSprite : badBoySpriteList) {
 			badSprite.render(gc);
 		}
-		
+
 		for(CandySprite candySprite : candySpriteList) {
 			candySprite.render(gc);
 		}
-		
-		exitSprite.render(gc);
-		
+
+		exitSprite.render(gc);*/
+
 		LongValue lastNanoTime = new LongValue(System.nanoTime());
 
 		//Animation Loop
@@ -218,24 +220,23 @@ public class ViewFrame{
 				double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
 				lastNanoTime.value = currentNanoTime;
 
-				//playerSprite.update(elapsedTime);
 
 				//Redraw elements
 				gc.clearRect(0, 0, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN );
-				
+
 				for(ButtonSprite buttonSprite : buttonSpriteList) 
 					buttonSprite.render(gc);
-				
+
 				playerSprite.render(gc);
-				
+
 				for(BadBoySprite badSprite : badBoySpriteList) 
 					badSprite.render(gc);
-				
+
 				for(CandySprite candySprite : candySpriteList) 
 					candySprite.render(gc);
-				
+
 				exitSprite.render(gc);
-				
+
 			}
 		}.start();
 

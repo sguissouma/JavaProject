@@ -11,13 +11,13 @@ public class GameWindow extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		view = new ViewFrame();
-		view.start(primaryStage, Controller.getLabyrinth());
+		view.start(primaryStage, Controller.getInstance().getLabyrinth());
 	}
 
 	public void stop() {
 		System.exit(0);
 	}
-	
+
 	public void open() {
 		launch();
 	}

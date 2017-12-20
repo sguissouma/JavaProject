@@ -2,7 +2,7 @@ package model;
 import org.jgrapht.graph.DefaultEdge;
 
 public class Edge extends DefaultEdge implements Comparable<Edge>{
-	
+
 	/**
 	 * 
 	 */
@@ -11,26 +11,26 @@ public class Edge extends DefaultEdge implements Comparable<Edge>{
 	 * 
 	 */
 	private DoorType doortype; 
-	
-	
+
+
 	public Edge() {
 		super();
 		setDoorType(DoorType.NONE);
 	}
-	
+
 	public Edge (DoorType type) {
 		super();
 		setDoorType(type);
 	}
-	
+
 	public Vertex getSource(){
 		return (Vertex) super.getSource();
 	}
-	
+
 	public Vertex getTarget() {
 		return (Vertex) super.getTarget();
 	}
-	
+
 	@Override
 	public int compareTo(Edge o) {
 		int diffSource = this.getSource().compareTo(o.getSource());
@@ -39,12 +39,12 @@ public class Edge extends DefaultEdge implements Comparable<Edge>{
 		else
 			return  this.getTarget().compareTo(o.getTarget());
 	}
-	
+
 	public String toString() {
 		String s = "[" + this.getSource().toString() + "<->" + this.getTarget().toString() + "]";
 		return s;
 	}
-	
+
 	public DoorType getDoorType() {
 		return doortype;
 	}

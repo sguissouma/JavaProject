@@ -9,18 +9,18 @@ import org.jgrapht.graph.SimpleGraph;
 @SuppressWarnings("serial")
 public class Graph extends SimpleGraph<Vertex,Edge>{
 
-	
+
 	public static final int WIDTH = 15;
 	/**
 	 * Hauteur du Graph
 	 */
 	public static final int HEIGHT = 15;
-	
-	
+
+
 	public Graph() {
 		super(Edge.class);
 	}
-	
+
 	/**
 	 * ajout d'un sommet au graphe si tout s'est bien passé
 	 * @param v : un sommet 
@@ -30,7 +30,7 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 		boolean ret = super.addVertex(v);
 		return ret;
 	}
-	
+
 	/**
 	 * 
 	 * @param vertex : un sommet
@@ -43,9 +43,9 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 		}
 		return false;
 	}
-	
-	
-	
+
+
+
 	/*
 	 * 	graph MyGraph{
 	 * 	  V_0_0 [label="0,0"];
@@ -57,30 +57,30 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	 *  
 	 *  dot -Tpng -o mongraphe.png mongraphe.dot
 	 */
-	
+
 	public void toDot(String fileName) throws IOException {
 		File f = new File(fileName);
 		FileWriter w = new FileWriter(f);
-		
+
 		w.write("graph MyGraph{\n");
 		String buf = new String("");
-		
+
 		for (Vertex v : this.vertexSet()) {
 			buf = "V_" + v.getX() + "_" + v.getY() + " [label=\"" + v.getX()+ ","+v.getY()+"\"];\n";
 			w.write(buf);
- 		}
-		
+		}
+
 		Vertex v1, v2;
 		for(Edge e : this.edgeSet()) {
 			v1 = this.getEdgeSource(e);
 			v2 = this.getEdgeTarget(e);
-			
+
 			buf = "V_" + v1.getX() + "_" + v1.getY() + " -- " + "V_" + v2.getX() + "_" + v2.getY() +" [label=\""+e.getDoorType().toString() +"\"];\n";						
 			w.write(buf);
 		}
-		
+
 		w.write("}");;
-		
+
 		w.close();
 	}
 
@@ -123,7 +123,7 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 			yt =vertex.getY();
 			break;
 		}
-		
+
 		res = getVertex(xt, yt);
 		return res;
 	}
@@ -144,7 +144,7 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 		}
 		return e;
 	}
-	
+
 	public Edge getEdge(Vertex vertex, Directions dir) {
 		Vertex vRes ;
 		int xt, yt;
@@ -174,8 +174,8 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 		vRes = this.getVertex(xt, yt); 	
 		return this.getEdge(vertex, vRes);
 	}
-	
-	
+
+
 	// retourne le vertex dans le graph équivalent
 	public Vertex getVertex(int x, int y) {
 		for (Vertex v : vertexSet())
@@ -187,10 +187,10 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	public boolean isConnected(Vertex vertex, Vertex next) {
 		return this.containsEdge(vertex, next);
 	}
-	
+
 	public boolean doesntExist(Vertex vertex, Directions dir) {
 		Vertex v = getVertexByDir(vertex, dir); 
 		return v == null ;
 	}
-	
+
 }

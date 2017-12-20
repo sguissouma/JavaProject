@@ -10,15 +10,15 @@ public class PlayerSprite extends Sprite implements Observer{
 
 	private PlayerController controller;
 	private Player player;
-	
+
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	
+
 	public void setController(PlayerController controller) {
 		this.controller = controller;
 	}
-	
+
 	public PlayerController getController() {
 		return this.controller;
 	}
@@ -27,5 +27,5 @@ public class PlayerSprite extends Sprite implements Observer{
 	public void update(Observable o, Object arg) {
 		this.setPosition(player.getPosition().x, player.getPosition().y);
 	}
-	
+
 }
