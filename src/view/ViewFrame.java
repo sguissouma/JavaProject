@@ -189,26 +189,6 @@ public class ViewFrame{
 		//Create Graphic context
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		/*
-		//Set initial position badboys sprites
-		for(ButtonSprite buttonSprite : buttonSpriteList) {
-			buttonSprite.render(gc);
-		}
-
-		//Set initial position player sprite
-		playerSprite.render(gc);
-
-		//Set initial position badboys sprites
-		for(BadBoySprite badSprite : badBoySpriteList) {
-			badSprite.render(gc);
-		}
-
-		for(CandySprite candySprite : candySpriteList) {
-			candySprite.render(gc);
-		}
-
-		exitSprite.render(gc);*/
-
 		LongValue lastNanoTime = new LongValue(System.nanoTime());
 
 		//Animation Loop
@@ -219,7 +199,6 @@ public class ViewFrame{
 				// calculate time since last update.
 				double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
 				lastNanoTime.value = currentNanoTime;
-
 
 				//Redraw elements
 				gc.clearRect(0, 0, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN );
