@@ -10,9 +10,6 @@ public class BadBoyController {
 
 	private BadBoy badboy;
 	
-	public BadBoyController(){
-	}
-	
 	public void setBadBoy(BadBoy badboy) {
 		this.badboy = badboy;
 	}
