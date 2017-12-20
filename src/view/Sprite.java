@@ -31,12 +31,14 @@ public class Sprite
 
     public void setImage(String filename)
     {
+    	
     	try {
-        Image i = new Image(filename,
-        	     36.0,
-        	     36.0,
+        Image i = new Image(filename);
+        		/*new Image(filename,
+        	     width,
+        	     height,
         	     true,
-        	     true);
+        	     true);*/
         setImage(i);
     	}catch(Exception e) {
     		System.out.println("No image loaded: "+ e.getMessage());
@@ -45,8 +47,8 @@ public class Sprite
 
     public void setPosition(double x, double y)
     {
-        positionX = x;
-        positionY = y;
+        positionX = x *44 + (ViewFrame.SPAN*2) + (36-width)/2;
+        positionY = y *44 + (ViewFrame.SPAN*2) + (36-height)/2;
     }
 
     public void setVelocity(double x, double y)
@@ -61,6 +63,14 @@ public class Sprite
         velocityY += y;
     }
 
+    public double getWidth() {
+    		return image.getWidth();
+    }
+    
+    public double getHeight() {
+		return image.getHeight();
+    }
+    
     public void update(double time)
     {
         positionX +=  velocityX * time;

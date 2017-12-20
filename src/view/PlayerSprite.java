@@ -22,11 +22,6 @@ public class PlayerSprite extends Sprite implements Observer{
 	public PlayerController getController() {
 		return this.controller;
 	}
-	
-	@Override
-	public void setPosition(double x, double y) {
-		super.setPosition(x*44 + (ViewFrame.SPAN*2), y*44 + (ViewFrame.SPAN*2));
-	}
 
 	@Override
 	public void update(Observable o, Object arg) {
