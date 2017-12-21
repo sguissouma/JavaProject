@@ -10,6 +10,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.util.Duration;
+import model.Button;
+import model.ButtonType;
 import model.Directions;
 import model.DoorType;
 import model.Edge;
@@ -69,7 +71,6 @@ public class LabyrinthController {
 		this.timeline.stop();
 	}
 
-
 	private EventHandler<ActionEvent> eventMoveBadGuys = new EventHandler<ActionEvent>(){
 		public void handle(ActionEvent event) {
 			for(BadBoyController ctrl : badBoysControllersList) {
@@ -89,7 +90,6 @@ public class LabyrinthController {
 			}
 		}
 	}
-
 
 	public void movePlayer(Directions direction){
 
@@ -150,6 +150,13 @@ public class LabyrinthController {
 					break;
 
 				case BUTTON:
+					Button btn = ((Button)element);
+					if (btn.getButtonType() == ButtonType.OPENER) {
+						model.openDoor(btn.getDoorEdge());
+					}
+					else {
+						model.closeDoor(btn.getDoorEdge());
+					}
 					break;
 					
 					//Exit

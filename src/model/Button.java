@@ -10,6 +10,10 @@ public class Button extends LabyrinthElement {
 		this.buttonType = type;
 		this.doorEdge = doorEdge;
 	}
+	
+	public Edge getDoorEdge() {
+		return this.doorEdge;
+	}
 
 	public ButtonType getButtonType(){
 		return this.buttonType;
