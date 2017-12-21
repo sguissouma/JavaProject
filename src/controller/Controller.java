@@ -29,11 +29,11 @@ public class Controller {
 
 	public Controller() {
 		model = new Labyrinth();
-		badBoysControllersList = new ArrayList<BadBoyController>();
-		timeline = new Timeline(new KeyFrame(
+		this.badBoysControllersList = new ArrayList<BadBoyController>();
+		this.timeline = new Timeline(new KeyFrame(
 				Duration.millis(1500),
 				eventMoveBadGuys));
-		timeline.setCycleCount(Animation.INDEFINITE);
+		this.timeline.setCycleCount(Animation.INDEFINITE);
 	}
 
 	public static Controller getInstance() {
@@ -55,15 +55,15 @@ public class Controller {
 	}
 
 	public ArrayList<BadBoyController> getBadBoysControllers(){
-		return badBoysControllersList;
+		return this.badBoysControllersList;
 	}
 
 	public void startBadBoysSearch() {
-		timeline.play();
+		this.timeline.play();
 	}
 
 	public void stopBadBoysSearch() {
-		timeline.stop();
+		this.timeline.stop();
 	}
 
 	public EventHandler<ActionEvent> eventMoveBadGuys = new EventHandler<ActionEvent>(){
@@ -106,10 +106,10 @@ public class Controller {
 	}
 
 	public void detectCollitions() {
-		if (!gameOver) {	
+		if (!this.gameOver) {	
 			ArrayList<LabyrinthElement> elements = Controller.getInstance()
 					.getLabyrinth()
-					.getElementsAt(playerController.getPlayer().getPosition().x, playerController.getPlayer().getPosition().y);
+					.getElementsAt(this.playerController.getPlayer().getPosition().x, this.playerController.getPlayer().getPosition().y);
 			if(elements.size()>1) {
 				for(LabyrinthElement element : elements) {
 
@@ -128,7 +128,7 @@ public class Controller {
 						alert.setTitle("GAME OVER");
 						alert.setHeaderText("GAME OVER");
 						alert.show();
-						gameOver = true;	
+						this.gameOver = true;	
 						this.stopBadBoysSearch();
 					}
 					
@@ -139,7 +139,7 @@ public class Controller {
 						alert.setTitle("YOU WIN");
 						alert.setHeaderText("YOU WIN");
 						alert.show();
-						gameOver = true;	
+						this.gameOver = true;	
 						this.stopBadBoysSearch();
 					}
 
