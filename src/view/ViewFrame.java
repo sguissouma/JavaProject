@@ -196,10 +196,16 @@ public class ViewFrame{
 		{
 			public void handle(long currentNanoTime)
 			{
+				
 				// calculate time since last update.
 				double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
 				lastNanoTime.value = currentNanoTime;
 
+				
+				//Collition detection
+				Controller.getInstance().detectCollitions(); 
+				
+				
 				//Redraw elements
 				gc.clearRect(0, 0, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN, ((WALL+CELL)*Labyrinth.size+WALL)*SPAN );
 
@@ -212,7 +218,8 @@ public class ViewFrame{
 					badSprite.render(gc);
 
 				for(CandySprite candySprite : candySpriteList) 
-					candySprite.render(gc);
+					if(candySprite.getCandy().isActive())
+						candySprite.render(gc);
 
 				exitSprite.render(gc);
 
@@ -221,6 +228,9 @@ public class ViewFrame{
 
 
 		stage.show();
+		
+		//start search
+		Controller.getInstance().startBadBoysSearch();
 	}
 
 	private void keyboarEvents(Scene theScene){
@@ -241,12 +251,12 @@ public class ViewFrame{
 						if (e.getCode() == KeyCode.DOWN) {
 							Controller.getInstance().movePlayer(Directions.SOUTH);
 						}
-						if (e.getCode() == KeyCode.S) {
+						/*if (e.getCode() == KeyCode.S) {
 							Controller.getInstance().startBadBoysSearch();
 						}
 						if (e.getCode() == KeyCode.D) {
 							Controller.getInstance().stopBadBoysSearch();
-						}
+						}*/
 					}
 				});
 	}

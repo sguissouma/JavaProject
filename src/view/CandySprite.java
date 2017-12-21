@@ -9,5 +9,9 @@ public class CandySprite extends Sprite {
 	public void setCandy(Candy candy) {
 		this.candy = candy;
 	}
+	
+	public Candy getCandy(){
+		return this.candy;
+	}
 
 }

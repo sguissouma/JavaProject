@@ -21,7 +21,8 @@ public class CandyFactory extends BaseFactory{
 
 		//Create Model
 		Candy candy = new Candy(coord.x,coord.y);
-		
+		candy.setActive(true);
+
 		//Add element to labyrinth
 		Controller.getInstance().getLabyrinth().addElement(candy);
 		
