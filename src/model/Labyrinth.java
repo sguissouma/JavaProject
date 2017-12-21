@@ -122,8 +122,8 @@ public class Labyrinth {
 		this.labElem.add(element);
 	}
 	
-	public List<LabyrinthElement> getElementsByType(LabyrinthElementType type) {
-		List<LabyrinthElement> res = new ArrayList<LabyrinthElement>();
+	public ArrayList<LabyrinthElement> getElementsByType(LabyrinthElementType type) {
+		ArrayList<LabyrinthElement> res = new ArrayList<LabyrinthElement>();
 
 		for(LabyrinthElement i : labElem) {
 			if(i.getType() == type) {
@@ -139,6 +139,20 @@ public class Labyrinth {
 				return i;
 		}
 		return null;
+	}
+	
+	public ArrayList<LabyrinthElement> getElementsAt(int x, int y) {
+		ArrayList<LabyrinthElement> elements = new ArrayList<LabyrinthElement>();
+		
+		for(LabyrinthElement i : labElem) {
+			if(i.getPosition().x == x && i.getPosition().y == y)
+				elements.add(i);
+		}
+		return elements;
+	}
+	
+	public ArrayList<LabyrinthElement> getElements(){
+		return this.labElem;
 	}
 	
 	public void removeElement(LabyrinthElement element) {

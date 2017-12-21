@@ -1,30 +1,22 @@
 package model;
 
-import java.util.Random;
-
 import controller.BadBoyController;
 import controller.Controller;
 import view.BadBoySprite;
 
-public class BadBoyFactory {
+public class BadBoyFactory extends BaseFactory{
 
 	public static BadBoySprite getBadBoyWithPosition(){
-		Random rand = new Random();
-
-		//we recalculate if the position is 0,0 (start position of player)
-		int x, y;
-		do {
-			x = rand.nextInt(Labyrinth.size);
-			y = rand.nextInt(Labyrinth.size);
-		}while(x==0 && y==0);
+		
+		Coord2D coord = generateFreePosition();
 
 		//Create View
 		BadBoySprite badBoyView = new BadBoySprite();
 		badBoyView.setImage("/images/bad.png");
-		badBoyView.setPosition(x, y);
+		badBoyView.setPosition(coord.x, coord.y);
 
 		//Create Model
-		BadBoy badboy = new BadBoy(x,y);
+		BadBoy badboy = new BadBoy(coord.x,coord.y);
 		badboy.addObserver(badBoyView);
 		
 		//Add element to labyrinth

@@ -11,6 +11,8 @@ public class PlayerFactory {
 		//Create View
 		PlayerSprite playerView = new PlayerSprite();
 		playerView.setImage("/images/player.png");
+		
+		//Player always starts at position 0,0
 		playerView.setPosition(0, 0);
 
 		//Create Model
