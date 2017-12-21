@@ -5,7 +5,7 @@ public class Main{
 
 	public static void main(String[] args) {
 
-		GameWindow gw = new GameWindow();
+		GameApplication gw = new GameApplication();
 		gw.open();
 	}
 

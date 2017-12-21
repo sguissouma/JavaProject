@@ -4,14 +4,14 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import view.ViewFrame;
 
-public class GameWindow extends Application {
+public class GameApplication extends Application {
 
 	private static ViewFrame view;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		view = new ViewFrame();
-		view.start(primaryStage, Controller.getInstance().getLabyrinth());
+		this.view = new ViewFrame();
+		this.view.start(primaryStage, Controller.getInstance().getLabyrinth());
 	}
 
 	public void stop() {
