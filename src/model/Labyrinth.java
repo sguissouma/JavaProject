@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 import java.util.Vector;
 
@@ -23,8 +20,8 @@ public class Labyrinth {
 	private Graph graph;
 	private Random rand;
 
-	private int width;
-	private int height;
+	private int width = size;
+	private int height = size;
 
 	public Labyrinth() {
 		this(new Vertex(0,0,0));
@@ -33,12 +30,8 @@ public class Labyrinth {
 	public Labyrinth(Vertex v) {
 		graph = new Graph();
 		graph.addVertex(v);
-		
-		width = size;
-		height = size;
 		rand = new Random();
-		doors = new ArrayList<Edge>();
-		
+		doors = new ArrayList<Edge>();	
 		//build random path
 		buildRandomPath(v);
 		//open random doors
@@ -256,44 +249,6 @@ public class Labyrinth {
 	public boolean isOpenedDoor(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
 		return ((edge != null) && (edge.getDoorType() == DoorType.OPENED));
-	}
-
-	/**
-	 * 
-	 * @param source
-	 * @param target
-	 * @since 4/12/17
-	 */
-	private void calculateManhattanDistance(Vertex source, Vertex target) {
-		Queue<Vertex> fifo = new ArrayDeque<>();
-		target.setNbr(1);
-		fifo.add(target);
-		while(!(fifo.isEmpty())) {
-			Vertex actual = fifo.remove();
-			for (Directions dir : Directions.values()) {
-				if(this.isOpened(actual, dir)) {
-					Vertex next = graph.getVertexByDir(actual, dir);
-					if(next.getNbr()==0) {
-						next.setNbr(actual.getNbr()+1);
-						if( next.compareTo(source) != 0) {
-							fifo.add(next);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * 
-	 * @param source
-	 * @param target
-	 * @since 4/12/17
-	 */
-	public void launchManhattan(Vertex source, Vertex target) {
-		for (Vertex vertex: graph.vertexSet())
-			vertex.setNbr(0);
-		calculateManhattanDistance(source, target);
 	}
 
 }

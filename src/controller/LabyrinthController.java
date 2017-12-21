@@ -1,7 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
-
+import helpers.Manhattan;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,30 +15,33 @@ import model.DoorType;
 import model.Edge;
 import model.Labyrinth;
 import model.LabyrinthElement;
-import model.LabyrinthElementType;
+import model.Player;
+import model.Vertex;
 
-public class Controller {
+public class LabyrinthController {
 
-	private static Controller instance = null;
-	private static Labyrinth model;
+	private static LabyrinthController instance = null;
+	private Labyrinth model;
 	private boolean gameOver = false;
 
 	private PlayerController playerController;
 	private ArrayList<BadBoyController> badBoysControllersList;
 	private Timeline timeline;	
+	private Manhattan algorithm;
 
-	public Controller() {
+	public LabyrinthController() {
 		model = new Labyrinth();
 		this.badBoysControllersList = new ArrayList<BadBoyController>();
 		this.timeline = new Timeline(new KeyFrame(
 				Duration.millis(1500),
 				eventMoveBadGuys));
 		this.timeline.setCycleCount(Animation.INDEFINITE);
+		this.algorithm = new Manhattan();
 	}
 
-	public static Controller getInstance() {
+	public static LabyrinthController getInstance() {
 		if(instance==null)
-			instance = new Controller();
+			instance = new LabyrinthController();
 		return instance;
 	}
 
@@ -66,13 +69,27 @@ public class Controller {
 		this.timeline.stop();
 	}
 
-	public EventHandler<ActionEvent> eventMoveBadGuys = new EventHandler<ActionEvent>(){
+
+	private EventHandler<ActionEvent> eventMoveBadGuys = new EventHandler<ActionEvent>(){
 		public void handle(ActionEvent event) {
 			for(BadBoyController ctrl : badBoysControllersList) {
-				ctrl.searchPlayer(model,playerController.getPlayer());
+				searchPlayer(ctrl);
 			}
 		}
 	};
+
+	public void searchPlayer(BadBoyController badControl){
+		this.algorithm.launch(badControl.searchVertexPosition(model), model.getGraph().getVertex(playerController.getPlayer().getPosition().x, playerController.getPlayer().getPosition().y));
+		Vertex vertex = badControl.searchVertexPosition(model);
+		for ( Directions dir : Directions.values() ) {
+			Vertex next =  model.getGraph().getVertexByDir(vertex, dir);
+			if(model.getGraph().isConnected(vertex, next) && ( next.getNbr() == vertex.getNbr() -1 ) )
+			{
+				badControl.move(dir);
+			}
+		}
+	}
+
 
 	public void movePlayer(Directions direction){
 
@@ -107,46 +124,56 @@ public class Controller {
 
 	public void detectCollitions() {
 		if (!this.gameOver) {	
-			ArrayList<LabyrinthElement> elements = Controller.getInstance()
-					.getLabyrinth()
-					.getElementsAt(this.playerController.getPlayer().getPosition().x, this.playerController.getPlayer().getPosition().y);
-			if(elements.size()>1) {
-				for(LabyrinthElement element : elements) {
 
-					//We ignore the object player
-					if (element.getType() == LabyrinthElementType.PLAYER)
-						continue;
+			Player player = this.playerController.getPlayer();
+			ArrayList<LabyrinthElement> elements = model.getElementsAt(player.getPosition().x, player.getPosition().y);
 
+			for(LabyrinthElement element : elements) {
+				switch (element.getType()) {
+
+				//We ignore the object player
+				case PLAYER:
+					continue;
+					
 					//Candy
-					if(element.getType() == LabyrinthElementType.CANDY && element.isActive()){
+				case CANDY: 
+					if(element.isActive()){
 						element.setActive(false);						
 					}
+					break;
 
 					//Bad Guy
-					if(element.getType() == LabyrinthElementType.BADBOY){
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("GAME OVER");
-						alert.setHeaderText("GAME OVER");
-						alert.show();
-						this.gameOver = true;	
-						this.stopBadBoysSearch();
-					}
-					
+				case BADBOY:
+					alert("GAME OVER");
+					this.gameOver = true;	
+					this.stopBadBoysSearch();
+					break;
+
+				case BUTTON:
+					break;
 					
 					//Exit
-					if(element.getType() == LabyrinthElementType.EXIT){
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("YOU WIN");
-						alert.setHeaderText("YOU WIN");
-						alert.show();
-						this.gameOver = true;	
-						this.stopBadBoysSearch();
-					}
+				case EXIT:
+					alert("YOU WIN !");
+					this.gameOver = true;	
+					this.stopBadBoysSearch();
+					break;
+					
+				default:
+					break;
 
 				}
-			}
-		}	
+			}	
+		}
 	}
 
-
+	private void alert(String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(message);
+		alert.setHeaderText(message);
+		alert.show();
+	}
 }
+
+
+
