@@ -11,7 +11,7 @@ public class GameApplication extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.view = new ViewFrame();
-		this.view.start(primaryStage, Controller.getInstance().getLabyrinth());
+		this.view.start(primaryStage, LabyrinthController.getInstance().getLabyrinth());
 	}
 
 	public void stop() {
