@@ -173,7 +173,7 @@ public class Labyrinth {
 	 */
 	public void createRandomDoors() {
 		doors = new ArrayList<Edge>();
-		for (int i = 0; i <= 5; i++) {
+		for (int i = 0; i <= 20; i++) {
 			Vertex vertex = graph.randomVertex();		
 			if (vertex != null) {
 				Directions dir = Directions.randomDirection();			

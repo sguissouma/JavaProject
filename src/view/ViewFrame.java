@@ -7,12 +7,12 @@ import model.DoorType;
 import model.Edge;
 import model.Graph;
 import model.Labyrinth;
+import model.Vertex;
 import model.factory.BadBoyFactory;
 import model.factory.ButtonFactory;
 import model.factory.CandyFactory;
 import model.factory.ExitDoorFactory;
 import model.factory.PlayerFactory;
-
 import java.util.ArrayList;
 import controller.LabyrinthController;
 import javafx.event.EventHandler;
@@ -45,6 +45,7 @@ public class ViewFrame{
 	private ArrayList<ButtonSprite> buttonSpriteList;
 	private ArrayList<CandySprite> candySpriteList;
 	private ExitSprite exitSprite;
+	private ArrayList<RectangleShape> doorList;
 
 	public ViewFrame() {
 
@@ -85,6 +86,8 @@ public class ViewFrame{
 		this.exitSprite = ExitDoorFactory.createExitDoor();
 		LabyrinthController.getInstance().getLabyrinth().addElement(this.exitSprite.getExit());
 
+		this.doorList = new ArrayList<RectangleShape>();
+		
 		ViewFrame.pane = new Pane();
 	}
 
@@ -123,25 +126,35 @@ public class ViewFrame{
 		}
 	}
 
-	public static void drawWall(int xs, int	ys,	int	xt, int	yt, Paint color){
+	public void drawWall(int xs, int	ys,	int	xt, int	yt, Paint color, Edge e){
 		int	x = 0, y = 0, xspan = 0, yspan = 0;
 		if(ys==yt){
 			x = ((WALL+CELL)+(WALL+CELL)*((int)(xs+xt)/2))*SPAN;
 			y = (WALL+ ys*(WALL+CELL))*SPAN;
 			xspan = WALL*SPAN;
 			yspan = CELL*SPAN;
-			Rectangle square = new Rectangle(x, y, xspan, yspan);
+			RectangleShape square = new RectangleShape(x, y, xspan, yspan);
 			square.setFill(color);
 			pane.getChildren().add(square);
+			
+			if (e!= null && e.getDoorType() != DoorType.NONE) {
+				square.setEdge(e);
+				this.doorList.add(square);
+			}
 		}
 		else if(xs==xt){
 			x = (WALL+ xs*(WALL+CELL))*SPAN;
 			y = ((WALL+CELL) + (WALL+CELL)*((int)(ys+yt)/2)) * SPAN;
 			xspan = CELL*SPAN; //
 			yspan = WALL*SPAN; 
-			Rectangle square = new Rectangle(x, y, xspan, yspan);
+			RectangleShape square = new RectangleShape(x, y, xspan, yspan);
 			square.setFill(color);
 			pane.getChildren().add(square);
+			
+			if (e!= null && e.getDoorType() != DoorType.NONE) {
+				square.setEdge(e);
+				this.doorList.add(square);
+			}
 		}
 	}
 
@@ -153,11 +166,11 @@ public class ViewFrame{
 				if (x + 1 < Graph.WIDTH) {
 					e = g.getEdge(g.getVertex(x, y), g.getVertex(x + 1, y));
 					if (e == null || (e.getDoorType() != DoorType.NONE)) {
-						drawWall(x, y, x + 1, y, WALL_COLOR);
+						drawWall(x, y, x + 1, y, WALL_COLOR,e);
 						if (e != null && (e.getDoorType() == DoorType.OPENED)) {
-							drawWall(x, y, x + 1, y, Color.RED);
+							drawWall(x, y, x + 1, y, Color.RED,e);
 						} else if (e != null && (e.getDoorType() == DoorType.CLOSED)) {
-							drawWall(x, y, x + 1, y, Color.GREEN);
+							drawWall(x, y, x + 1, y, Color.GREEN,e);
 						}
 					}
 				}
@@ -165,11 +178,11 @@ public class ViewFrame{
 				if (y + 1 < Graph.HEIGHT) {
 					e = g.getEdge(g.getVertex(x, y), g.getVertex(x, y + 1));
 					if (e == null || (e.getDoorType() != DoorType.NONE)) {
-						drawWall(x, y, x, y + 1, WALL_COLOR);
+						drawWall(x, y, x, y + 1, WALL_COLOR,e);
 						if (e != null && (e.getDoorType() == DoorType.OPENED)) {
-							drawWall(x, y, x, y + 1, Color.GREEN);
+							drawWall(x, y, x, y + 1, Color.GREEN,e);
 						} else if (e != null && (e.getDoorType() == DoorType.CLOSED)) {
-							drawWall(x, y, x + 1, y, Color.RED);
+							drawWall(x, y, x + 1, y, Color.RED,e);
 						}
 					}
 
@@ -230,6 +243,14 @@ public class ViewFrame{
 						candySprite.render(gc);
 
 				exitSprite.render(gc);
+				
+				for(RectangleShape door : doorList) {
+					if (door.getEdge().getDoorType() == DoorType.OPENED)
+						door.setFill(Color.GREEN);
+					else
+						door.setFill(Color.RED);
+				} 
+
 
 			}
 		}.start();
