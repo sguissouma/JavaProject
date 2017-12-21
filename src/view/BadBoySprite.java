@@ -10,10 +10,14 @@ public class BadBoySprite extends Sprite implements Observer {
 	private BadBoyController controller;
 	private BadBoy badboy;
 
-	public void setPlayer(BadBoy badboy) {
+	public void setBadBoy(BadBoy badboy) {
 		this.badboy = badboy;
 	}
 
+	public BadBoy getBadBoy() {
+		return this.badboy;
+	}
+	
 	public void setController(BadBoyController controller) {
 		this.controller = controller;
 	}

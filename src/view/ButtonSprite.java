@@ -9,6 +9,10 @@ public class ButtonSprite extends Sprite {
 	public void setButton(Button button) {
 		this.button = button;
 	}
+	
+	public Button getButton() {
+		return this.button;
+	}
 
 
 }
