@@ -14,6 +14,10 @@ public class PlayerSprite extends Sprite implements Observer{
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
+	
+	public Player getPlayer() {
+		return this.player;
+	}
 
 	public void setController(PlayerController controller) {
 		this.controller = controller;
