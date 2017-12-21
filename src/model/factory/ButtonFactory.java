@@ -1,6 +1,9 @@
-package model;
+package model.factory;
 
-import controller.Controller;
+import model.Button;
+import model.ButtonType;
+import model.Coord2D;
+import model.Edge;
 import view.ButtonSprite;
 
 public class ButtonFactory extends BaseFactory{
@@ -19,9 +22,6 @@ public class ButtonFactory extends BaseFactory{
 
 		//Create Model
 		Button button = new Button(coord.x,coord.y, type, edge);
-		
-		//Add element to labyrinth
-		Controller.getInstance().getLabyrinth().addElement(button);
 		
 		//Add element to sprite 
 		buttonView.setButton(button);

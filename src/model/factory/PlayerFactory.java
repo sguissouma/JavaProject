@@ -1,7 +1,8 @@
-package model;
+package model.factory;
 
-import controller.Controller;
+import controller.LabyrinthController;
 import controller.PlayerController;
+import model.Player;
 import view.PlayerSprite;
 
 public class PlayerFactory {
@@ -19,7 +20,7 @@ public class PlayerFactory {
 		Player player = new Player(0,0);
 		player.addObserver(playerView);
 
-		Controller.getInstance().getLabyrinth().addElement(player);
+		LabyrinthController.getInstance().getLabyrinth().addElement(player);
 		
 		//Add element to sprite
 		playerView.setPlayer(player);

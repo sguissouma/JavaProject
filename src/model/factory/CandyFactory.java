@@ -1,8 +1,10 @@
-package model;
+package model.factory;
 
 import java.util.Random;
 
-import controller.Controller;
+import controller.LabyrinthController;
+import model.Candy;
+import model.Coord2D;
 import view.CandySprite;
 
 public class CandyFactory extends BaseFactory{
@@ -24,7 +26,7 @@ public class CandyFactory extends BaseFactory{
 		candy.setActive(true);
 
 		//Add element to labyrinth
-		Controller.getInstance().getLabyrinth().addElement(candy);
+		LabyrinthController.getInstance().getLabyrinth().addElement(candy);
 		
 		//Add element to sprite
 		candySprite.setCandy(candy);

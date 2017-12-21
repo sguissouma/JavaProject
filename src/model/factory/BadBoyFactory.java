@@ -1,7 +1,8 @@
-package model;
+package model.factory;
 
 import controller.BadBoyController;
-import controller.Controller;
+import model.BadBoy;
+import model.Coord2D;
 import view.BadBoySprite;
 
 public class BadBoyFactory extends BaseFactory{
@@ -19,11 +20,8 @@ public class BadBoyFactory extends BaseFactory{
 		BadBoy badboy = new BadBoy(coord.x,coord.y);
 		badboy.addObserver(badBoyView);
 		
-		//Add element to labyrinth
-		Controller.getInstance().getLabyrinth().addElement(badboy);
-		
 		//Add element to sprite
-		badBoyView.setPlayer(badboy);
+		badBoyView.setBadBoy(badboy);
 
 		//Create Controller
 		BadBoyController bbController = new BadBoyController();

@@ -1,8 +1,10 @@
-package model;
+package model.factory;
 
 import java.util.Random;
 
-import controller.Controller;
+import controller.LabyrinthController;
+import model.Coord2D;
+import model.Labyrinth;
 
 public abstract class BaseFactory {
 	protected static Coord2D generateFreePosition() {
@@ -13,7 +15,7 @@ public abstract class BaseFactory {
 		do {
 			x = rand.nextInt(Labyrinth.size);
 			y = rand.nextInt(Labyrinth.size);
-		}while( Controller.getInstance().getLabyrinth().getElementsAt(x, y).size() > 1 );
+		}while( LabyrinthController.getInstance().getLabyrinth().getElementsAt(x, y).size() > 1 );
 		
 		return new Coord2D(x,y);
 	}

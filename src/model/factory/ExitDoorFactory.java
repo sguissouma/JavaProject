@@ -1,6 +1,8 @@
-package model;
+package model.factory;
 
-import controller.Controller;
+import controller.LabyrinthController;
+import model.Coord2D;
+import model.ExitDoor;
 import view.ExitSprite;
 
 public class ExitDoorFactory extends BaseFactory{
@@ -18,7 +20,7 @@ public class ExitDoorFactory extends BaseFactory{
 		ExitDoor exit = new ExitDoor(coord.x,coord.y);
 
 		//Add element to labyrinth
-		Controller.getInstance().getLabyrinth().addElement(exit);
+		LabyrinthController.getInstance().getLabyrinth().addElement(exit);
 		
 		//Add elemento to sprite
 		exitSprite.setExit(exit);
