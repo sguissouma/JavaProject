@@ -4,10 +4,14 @@ import model.ExitDoor;
 
 public class ExitSprite extends Sprite{
 
-	private ExitDoor exitSprite;
+	private ExitDoor exitDoor;
 
 	public void setExit(ExitDoor exitSprite) {
-		this.exitSprite = exitSprite;
+		this.exitDoor = exitSprite;
+	}
+	
+	public ExitDoor getExit() {
+		return this.exitDoor;
 	}
 
 }
