@@ -7,7 +7,7 @@ import view.CandySprite;
 
 public class CandyFactory extends BaseFactory{
 
-	public static CandySprite getCandySprite() {
+	public static CandySprite createCandy() {
 
 		Random rand = new Random();
 		int num_image = rand.nextInt(4 - 1) + 1;

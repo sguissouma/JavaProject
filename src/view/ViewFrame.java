@@ -48,13 +48,13 @@ public class ViewFrame{
 	public ViewFrame() {
 
 		//create player sprite
-		this.playerSprite = PlayerFactory.getPlayerView();
+		this.playerSprite = PlayerFactory.createPlayer();
 		Controller.getInstance().setPlayerController(this.playerSprite.getController());
 
 		//create bad guys
 		badBoySpriteList = new ArrayList<BadBoySprite>();
 		for(int n = 0 ; n < BAD_BOYS_NUMBER; n++) {
-			BadBoySprite sprite = BadBoyFactory.getBadBoyWithPosition();
+			BadBoySprite sprite = BadBoyFactory.createBadBoy();
 			this.badBoySpriteList.add(sprite);
 			Controller.getInstance().addBadBoyController(sprite.getController());
 		}
@@ -62,8 +62,8 @@ public class ViewFrame{
 		//create buttons
 		buttonSpriteList = new ArrayList<ButtonSprite>();
 		for(Edge e : Controller.getInstance().getLabyrinth().getDoorList()) {
-			ButtonSprite btn1 = ButtonFactory.getButton(ButtonType.OPENER, e);
-			ButtonSprite btn2 = ButtonFactory.getButton(ButtonType.CLOSER, e);
+			ButtonSprite btn1 = ButtonFactory.createButton(ButtonType.OPENER, e);
+			ButtonSprite btn2 = ButtonFactory.createButton(ButtonType.CLOSER, e);
 			buttonSpriteList.add(btn1);
 			buttonSpriteList.add(btn2);
 		}
@@ -71,11 +71,11 @@ public class ViewFrame{
 		//create bad guys
 		candySpriteList = new ArrayList<CandySprite>();
 		for(int n = 0 ; n < 6; n++) {
-			CandySprite sprite = CandyFactory.getCandySprite();
+			CandySprite sprite = CandyFactory.createCandy();
 			this.candySpriteList.add(sprite);
 		}
 
-		this.exitSprite = ExitDoorFactory.getExitDoorView();
+		this.exitSprite = ExitDoorFactory.createExitDoor();
 
 		ViewFrame.pane = new Pane();
 	}

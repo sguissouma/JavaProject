@@ -1,13 +1,11 @@
 package model;
 
-import java.util.Random;
-
 import controller.Controller;
 import view.ExitSprite;
 
 public class ExitDoorFactory extends BaseFactory{
 
-	public static ExitSprite getExitDoorView(){
+	public static ExitSprite createExitDoor(){
 		
 		Coord2D coord = generateFreePosition();
 

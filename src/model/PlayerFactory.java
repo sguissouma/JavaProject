@@ -6,7 +6,7 @@ import view.PlayerSprite;
 
 public class PlayerFactory {
 
-	public static PlayerSprite getPlayerView(){
+	public static PlayerSprite createPlayer(){
 
 		//Create View
 		PlayerSprite playerView = new PlayerSprite();

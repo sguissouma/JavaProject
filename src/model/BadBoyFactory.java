@@ -6,7 +6,7 @@ import view.BadBoySprite;
 
 public class BadBoyFactory extends BaseFactory{
 
-	public static BadBoySprite getBadBoyWithPosition(){
+	public static BadBoySprite createBadBoy(){
 		
 		Coord2D coord = generateFreePosition();
 

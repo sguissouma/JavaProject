@@ -5,7 +5,7 @@ import view.ButtonSprite;
 
 public class ButtonFactory extends BaseFactory{
 
-	public static ButtonSprite getButton(ButtonType type, Edge edge){
+	public static ButtonSprite createButton(ButtonType type, Edge edge){
 	
 		Coord2D coord = generateFreePosition();
 		
