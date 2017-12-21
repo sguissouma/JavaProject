@@ -15,7 +15,7 @@ public class BadBoyController {
 	}
 
 	public BadBoy getBadBoy(){
-		return badboy;
+		return this.badboy;
 	}
 
 	public void searchPlayer(Labyrinth labyrinth, Player player){
@@ -33,7 +33,7 @@ public class BadBoyController {
 
 	private Vertex searchMyVertexPosition(Labyrinth labyrinth)
 	{
-		Vertex v = new Vertex(badboy.getPosition().x, badboy.getPosition().y, 0);
+		Vertex v = new Vertex(this.badboy.getPosition().x, this.badboy.getPosition().y, 0);
 		for(Vertex tmp : labyrinth.getGraph().vertexSet())
 			if(v.compareTo(tmp) == 0)
 				return tmp;
