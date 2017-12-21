@@ -1,19 +1,20 @@
 package view;
 
 import javafx.stage.Stage;
-import model.BadBoyFactory;
-import model.ButtonFactory;
 import model.ButtonType;
-import model.CandyFactory;
 import model.Directions;
 import model.DoorType;
 import model.Edge;
-import model.ExitDoorFactory;
 import model.Graph;
 import model.Labyrinth;
-import model.PlayerFactory;
+import model.factory.BadBoyFactory;
+import model.factory.ButtonFactory;
+import model.factory.CandyFactory;
+import model.factory.ExitDoorFactory;
+import model.factory.PlayerFactory;
+
 import java.util.ArrayList;
-import controller.Controller;
+import controller.LabyrinthController;
 import javafx.event.EventHandler;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
@@ -49,33 +50,40 @@ public class ViewFrame{
 
 		//create player sprite
 		this.playerSprite = PlayerFactory.createPlayer();
-		Controller.getInstance().setPlayerController(this.playerSprite.getController());
+		LabyrinthController.getInstance().setPlayerController(this.playerSprite.getController());
 
 		//create bad guys
 		badBoySpriteList = new ArrayList<BadBoySprite>();
 		for(int n = 0 ; n < BAD_BOYS_NUMBER; n++) {
-			BadBoySprite sprite = BadBoyFactory.createBadBoy();
-			this.badBoySpriteList.add(sprite);
-			Controller.getInstance().addBadBoyController(sprite.getController());
+			BadBoySprite badSprite = BadBoyFactory.createBadBoy();
+			this.badBoySpriteList.add(badSprite);
+			LabyrinthController.getInstance().addBadBoyController(badSprite.getController());
+			LabyrinthController.getInstance().getLabyrinth().addElement(badSprite.getBadBoy());
 		}
 
 		//create buttons
 		buttonSpriteList = new ArrayList<ButtonSprite>();
-		for(Edge e : Controller.getInstance().getLabyrinth().getDoorList()) {
+		for(Edge e : LabyrinthController.getInstance().getLabyrinth().getDoorList()) {
 			ButtonSprite btn1 = ButtonFactory.createButton(ButtonType.OPENER, e);
 			ButtonSprite btn2 = ButtonFactory.createButton(ButtonType.CLOSER, e);
 			buttonSpriteList.add(btn1);
 			buttonSpriteList.add(btn2);
+			//Add element to labyrinth
+			LabyrinthController.getInstance().getLabyrinth().addElement(btn1.getButton());
+			LabyrinthController.getInstance().getLabyrinth().addElement(btn2.getButton());
 		}
 
 		//create bad guys
 		candySpriteList = new ArrayList<CandySprite>();
 		for(int n = 0 ; n < 6; n++) {
-			CandySprite sprite = CandyFactory.createCandy();
-			this.candySpriteList.add(sprite);
+			CandySprite candySprite = CandyFactory.createCandy();
+			this.candySpriteList.add(candySprite);
+			LabyrinthController.getInstance().getLabyrinth().addElement(candySprite.getCandy());
 		}
 
+		//create exit door
 		this.exitSprite = ExitDoorFactory.createExitDoor();
+		LabyrinthController.getInstance().getLabyrinth().addElement(this.exitSprite.getExit());
 
 		ViewFrame.pane = new Pane();
 	}
@@ -203,7 +211,7 @@ public class ViewFrame{
 
 				
 				//Collition detection
-				Controller.getInstance().detectCollitions(); 
+				LabyrinthController.getInstance().detectCollitions(); 
 				
 				
 				//Redraw elements
@@ -230,7 +238,7 @@ public class ViewFrame{
 		stage.show();
 		
 		//start search
-		Controller.getInstance().startBadBoysSearch();
+		LabyrinthController.getInstance().startBadBoysSearch();
 	}
 
 	private void keyboarEvents(Scene theScene){
@@ -240,16 +248,16 @@ public class ViewFrame{
 					public void handle(KeyEvent e)
 					{
 						if (e.getCode() == KeyCode.LEFT) {
-							Controller.getInstance().movePlayer(Directions.WEST);
+							LabyrinthController.getInstance().movePlayer(Directions.WEST);
 						}
 						if (e.getCode() ==KeyCode.RIGHT) {
-							Controller.getInstance().movePlayer(Directions.EAST);
+							LabyrinthController.getInstance().movePlayer(Directions.EAST);
 						}
 						if (e.getCode() == KeyCode.UP) {
-							Controller.getInstance().movePlayer(Directions.NORTH);
+							LabyrinthController.getInstance().movePlayer(Directions.NORTH);
 						}
 						if (e.getCode() == KeyCode.DOWN) {
-							Controller.getInstance().movePlayer(Directions.SOUTH);
+							LabyrinthController.getInstance().movePlayer(Directions.SOUTH);
 						}
 						/*if (e.getCode() == KeyCode.S) {
 							Controller.getInstance().startBadBoysSearch();
