@@ -1,7 +1,7 @@
 /**
  * 
  */
-package model;
+package helpers;
 
 /**
  * @author Carlos Villavicencio
