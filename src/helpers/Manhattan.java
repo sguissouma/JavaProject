@@ -6,8 +6,17 @@ import controller.LabyrinthController;
 import model.Directions;
 import model.Vertex;
 
+/**
+ * Class that manages the Manhattan distance calculation algorithm
+ * 
+ * @author Carlos Villavicencio
+ *
+ */
 public class Manhattan implements IAlgorithm{
 
+	/**
+	 * Load the Manhattan algorithm.
+	 */
 	@Override
 	public void launch(Vertex source, Vertex target) {
 		for (Vertex vertex: LabyrinthController.getInstance().getLabyrinth().getGraph().vertexSet())
@@ -15,7 +24,12 @@ public class Manhattan implements IAlgorithm{
 		calculateManhattanDistance(source, target);
 	}
 	
-	
+	/**
+	 *  The distance between two points in a grid based on a strictly horizontal and/or vertical path, 
+	 *  as opposed to the diagonal distance.
+	 * @param source starting vertex
+	 * @param target ending vertex
+	 */
 	private void calculateManhattanDistance(Vertex source, Vertex target) {
 		Queue<Vertex> fifo = new ArrayDeque<>();
 		target.setNbr(1);
