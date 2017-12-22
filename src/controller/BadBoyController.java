@@ -5,18 +5,40 @@ import model.Directions;
 import model.Labyrinth;
 import model.Vertex;
 
+/**
+ * 
+ * Controller class which controls a entity of type BadBoy. All necessary methods to update the state of the entity and its position are present here.
+ * 
+ * @author Carlos Villavicencio
+ *
+ */
+
 public class BadBoyController {
 
 	private BadBoy badboy;
 
+	/**
+	 * Set a BadBoy type object to the badboy instance variable contained in BadBoyController.
+	 * 
+	 * @param badboy BadBoy type object that represents an evil character in the game.
+	 */
 	public void setBadBoy(BadBoy badboy) {
 		this.badboy = badboy;
 	}
 
+	/**
+	 * A getter method that is responsible for returning an object of type BadBoy.
+	 * 
+	 * @return A BadBoy type object that represents an evil character in the game.
+	 */
 	public BadBoy getBadBoy(){
 		return this.badboy;
 	}
 	
+	/**
+	 * Update badboy position coordinates.
+	 * @param direction Direction to which the badboy object will move.
+	 */
 	public void move(Directions direction){
 		if (direction == Directions.WEST){
 			this.badboy.setPosition(this.badboy.getPosition().x - 1, this.badboy.getPosition().y);
@@ -32,6 +54,11 @@ public class BadBoyController {
 		}
 	}
 	
+	/**
+	 * Search for the vertex where the badboy object is.
+	 * @param labyrinth Game Labyrinth. Model which contains all labyrinth logic.
+	 * @return returns The vertex where the badboy is.
+	 */
 	public Vertex searchVertexPosition(Labyrinth labyrinth)
 	{
 		Vertex v = new Vertex(this.badboy.getPosition().x, this.badboy.getPosition().y, 0);

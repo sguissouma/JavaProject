@@ -1,8 +1,8 @@
 package model.factory;
 
 import controller.BadBoyController;
+import helpers.Coord2D;
 import model.BadBoy;
-import model.Coord2D;
 import view.BadBoySprite;
 
 public class BadBoyFactory extends BaseFactory{

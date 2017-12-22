@@ -1,7 +1,7 @@
 package model.factory;
 
 import controller.LabyrinthController;
-import model.Coord2D;
+import helpers.Coord2D;
 import model.ExitDoor;
 import view.ExitSprite;
 

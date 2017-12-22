@@ -20,6 +20,16 @@ import model.LabyrinthElement;
 import model.Player;
 import model.Vertex;
 
+
+/**
+ * Controller class of the labyrinth. It contains all the necessary methods to change and generate the different states of it. 
+ * It generates a Singleton object with which its only instance can be accessed from all other classes. 
+ * All methods to update the entity and its values are present here.
+ * 
+ * @author Carlos Villavicencio
+ *
+ */
+
 public class LabyrinthController {
 
 	private static LabyrinthController instance = null;
@@ -31,7 +41,10 @@ public class LabyrinthController {
 	private Timeline timeline;	
 	private Manhattan algorithm;
 
-	public LabyrinthController() {
+	/**
+	 * The Labyrinth Controller private constructor.
+	 */
+	private LabyrinthController() {
 		model = new Labyrinth();
 		this.badBoysControllersList = new ArrayList<BadBoyController>();
 		this.timeline = new Timeline(new KeyFrame(
@@ -41,36 +54,65 @@ public class LabyrinthController {
 		this.algorithm = new Manhattan();
 	}
 
+	/**
+	 * The public Singleton method to get the instance of Labyrinth controller.
+	 * @return The labyrinth controller instance.
+	 */
 	public static LabyrinthController getInstance() {
 		if(instance==null)
 			instance = new LabyrinthController();
 		return instance;
 	}
 
+	/**
+	 * getter method to obtain the labyrinth instance
+	 * @return  The labyrinth instance.
+	 */
 	public Labyrinth getLabyrinth() {
 		return model;
 	}
 
+	/**
+	 * setter method to set the player Controller instance
+	 */
 	public void setPlayerController(PlayerController playerController) {
 		this.playerController = playerController;
 	}
 
+	/**
+	 * Add a BadBoyController to the list of badBoysControllersList.
+	 * @param badBoyController an instance of bad boy controller.
+	 */
 	public void addBadBoyController(BadBoyController badBoyController) {
 		this.badBoysControllersList.add(badBoyController);
 	}
 
+	/**
+	 * getter method to obtain all Bad Boys controller
+	 * @return An ArrayList of BadBoyController
+	 */
 	public ArrayList<BadBoyController> getBadBoysControllers(){
 		return this.badBoysControllersList;
 	}
 
+	/**
+	 * Start the timer which can be used to loop the search by the bad boys.
+	 */
 	public void startBadBoysSearch() {
 		this.timeline.play();
 	}
 
+	/**
+	 * Stop the timer which can be used to loop the search by the bad boys.
+	 */
 	public void stopBadBoysSearch() {
 		this.timeline.stop();
 	}
 
+	/**
+	 * EventHandler used to start the search actions by bad boys. 
+	 * It basically says to begin the movement of Bad boys.
+	 */
 	private EventHandler<ActionEvent> eventMoveBadGuys = new EventHandler<ActionEvent>(){
 		public void handle(ActionEvent event) {
 			for(BadBoyController ctrl : badBoysControllersList) {
@@ -79,6 +121,10 @@ public class LabyrinthController {
 		}
 	};
 
+	/**
+	 * Method that is responsible for checking the most appropriate direction to be able to search the player.
+	 * @param badControl Controller that contains the necessary methods to obtain and modify the badboy entity. 
+	 */
 	public void searchPlayer(BadBoyController badControl){
 		this.algorithm.launch(badControl.searchVertexPosition(model), model.getGraph().getVertex(playerController.getPlayer().getPosition().x, playerController.getPlayer().getPosition().y));
 		Vertex vertex = badControl.searchVertexPosition(model);
@@ -91,6 +137,10 @@ public class LabyrinthController {
 		}
 	}
 
+	/**
+	 * Move the player to the indicated direction.
+	 * @param direction Direction to which the player is going to move.
+	 */
 	public void movePlayer(Directions direction){
 
 		if (!gameOver) {	
@@ -122,6 +172,9 @@ public class LabyrinthController {
 
 	}
 
+	/**
+	 * Game handling collisions. Each element game will be checked against the position of the player to know if they are in the same coordinate.
+	 */
 	public void detectCollitions() {
 		if (!this.gameOver) {	
 
@@ -174,6 +227,10 @@ public class LabyrinthController {
 		}
 	}
 
+	/**
+	 * Alert messages to show if the person lost or won the game.
+	 * @param message Alert message to be displayed.
+	 */
 	private void alert(String message) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(message);

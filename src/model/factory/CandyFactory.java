@@ -3,8 +3,8 @@ package model.factory;
 import java.util.Random;
 
 import controller.LabyrinthController;
+import helpers.Coord2D;
 import model.Candy;
-import model.Coord2D;
 import view.CandySprite;
 
 public class CandyFactory extends BaseFactory{

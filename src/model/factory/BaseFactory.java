@@ -3,7 +3,7 @@ package model.factory;
 import java.util.Random;
 
 import controller.LabyrinthController;
-import model.Coord2D;
+import helpers.Coord2D;
 import model.Labyrinth;
 
 public abstract class BaseFactory {

@@ -5,6 +5,8 @@ package model;
 
 import java.util.Observable;
 
+import helpers.Coord2D;
+
 /**
  * @author Carlos Villavicencio
  *

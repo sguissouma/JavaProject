@@ -1,8 +1,8 @@
 package model.factory;
 
+import helpers.Coord2D;
 import model.Button;
 import model.ButtonType;
-import model.Coord2D;
 import model.Edge;
 import view.ButtonSprite;
 
