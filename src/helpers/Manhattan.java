@@ -10,6 +10,7 @@ import model.Vertex;
  * Class that manages the Manhattan distance calculation algorithm
  * 
  * @author Carlos Villavicencio
+ *  @version 1.0
  *
  */
 public class Manhattan implements IAlgorithm{

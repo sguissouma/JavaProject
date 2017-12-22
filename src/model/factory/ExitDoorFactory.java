@@ -5,8 +5,19 @@ import helpers.Coord2D;
 import model.ExitDoor;
 import view.ExitSprite;
 
+
+/**
+ * Class that contains all necessary methods to build the objects which represent the ExitDoor in the game.
+ * @author Carlos Villavicencio
+ * @version 1.0
+ *
+ */
 public class ExitDoorFactory extends BaseFactory{
 
+	/**
+	 * Method used to build necessary objects linked to the ExitDoor
+	 * @return returns an object of type ExitSprite that represents the view of the exit door.
+	 */
 	public static ExitSprite createExitDoor(){
 		
 		Coord2D coord = generateFreePosition();

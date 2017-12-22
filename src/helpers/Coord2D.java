@@ -7,6 +7,7 @@ package helpers;
  * Class that handles a simple 2D coordinate system.
  * 
  * @author Carlos Villavicencio
+ *  @version 1.0
  */
 public class Coord2D {
 	public int x;

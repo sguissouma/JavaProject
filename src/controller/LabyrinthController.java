@@ -27,7 +27,7 @@ import model.Vertex;
  * All methods to update the entity and its values are present here.
  * 
  * @author Carlos Villavicencio
- *
+ * @version 1.0
  */
 
 public class LabyrinthController {

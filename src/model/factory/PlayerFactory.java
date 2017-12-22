@@ -5,8 +5,19 @@ import controller.PlayerController;
 import model.Player;
 import view.PlayerSprite;
 
+/**
+ * Class that contains all necessary methods to build the objects which represent the Player in the game.
+ * @author Carlos Villavicencio
+ * @version 1.0
+ *
+ */
+
 public class PlayerFactory {
 
+	/**
+	 * Method used to build necessary objects linked to the Player
+	 * @return returns an object of type PlayerSprite that represents the view of the player.
+	 */
 	public static PlayerSprite createPlayer(){
 
 		//Create View

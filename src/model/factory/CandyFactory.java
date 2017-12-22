@@ -7,8 +7,18 @@ import helpers.Coord2D;
 import model.Candy;
 import view.CandySprite;
 
+/**
+ * Class that contains all necessary methods to build the objects which represent the Candy in the game.
+ * @author Carlos Villavicencio
+ * @version 1.0
+ *
+ */
 public class CandyFactory extends BaseFactory{
 
+	/**
+	 * Method used to build necessary objects linked to the Candy.
+	 * @return returns an object of type CandySprite that represents the view of the candy.
+	 */
 	public static CandySprite createCandy() {
 
 		Random rand = new Random();

@@ -10,7 +10,7 @@ import model.Vertex;
  * Controller class which controls a entity of type BadBoy. All necessary methods to update the state of the entity and its position are present here.
  * 
  * @author Carlos Villavicencio
- *
+ * @version 1.0
  */
 
 public class BadBoyController {

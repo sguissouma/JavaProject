@@ -10,7 +10,7 @@ import view.ViewFrame;
  * this class and implement its abstract method start(). 
  * 
  * @author Carlos Villavicencio
- *
+ * @version 1.0
  */
 
 public class GameApplication extends Application {

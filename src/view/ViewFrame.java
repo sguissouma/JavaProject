@@ -7,7 +7,6 @@ import model.DoorType;
 import model.Edge;
 import model.Graph;
 import model.Labyrinth;
-import model.Vertex;
 import model.factory.BadBoyFactory;
 import model.factory.ButtonFactory;
 import model.factory.CandyFactory;
@@ -27,6 +26,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * This is the main view of the game. All Human/Computer interactions with the player will be made here.
+ * @author Carlos Villavicencio
+ * @version 1.0
+ */
 
 public class ViewFrame{
 
@@ -47,6 +51,9 @@ public class ViewFrame{
 	private ExitSprite exitSprite;
 	private ArrayList<RectangleShape> doorList;
 
+	/**
+	 * Class constructor of ViewFrame
+	 */
 	public ViewFrame() {
 
 		//create player sprite
@@ -91,6 +98,12 @@ public class ViewFrame{
 		ViewFrame.pane = new Pane();
 	}
 
+	/**
+	 * Method to create the game frame without walls or doors.
+	 * @param stage The JavaFX Stage instance represents the level JavaFX container.
+	 * @param nbrX columns numbers in X
+	 * @param nbrY rows numbers in Y
+	 */
 	public void drawFrame(Stage stage, int nbrX, int nbrY) {
 		scene = new Scene(pane, ((WALL+CELL)*nbrX+WALL)*SPAN, ((WALL+CELL)*nbrY+WALL)*SPAN);
 		scene.setFill(SCENE_COLOR);
@@ -126,6 +139,16 @@ public class ViewFrame{
 		}
 	}
 
+	/**
+	 * Method to create walls and doors.
+	 * 
+	 * @param xs start position x
+	 * @param ys start position y
+	 * @param xt end position x
+	 * @param yt end position y
+	 * @param color wall color
+	 * @param e edge with a type wall or door
+	 */
 	public void drawWall(int xs, int	ys,	int	xt, int	yt, Paint color, Edge e){
 		int	x = 0, y = 0, xspan = 0, yspan = 0;
 		if(ys==yt){
@@ -158,6 +181,11 @@ public class ViewFrame{
 		}
 	}
 
+	/**
+	 * Draw the labyrinth using the graph.
+	 * 
+	 * @param g graph that contains the information to draw the labyrinth.
+	 */
 	public void drawGraph(Graph g) {
 		Edge e;
 		for (int x = 0; x < Graph.WIDTH; x++) {
@@ -191,6 +219,11 @@ public class ViewFrame{
 		}
 	}
 
+	/**
+	 * Method where the labyrinth is drawn and where the animations are made.
+	 * @param stage The JavaFX Stage object it represents the JavaFX container
+	 * @param model The Labyrinth
+	 */
 	public void start(Stage stage, Labyrinth model) {
 
 		stage.setTitle( "The MaZe!!" );
@@ -210,7 +243,7 @@ public class ViewFrame{
 		//Create Graphic context
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		LongValue lastNanoTime = new LongValue(System.nanoTime());
+		//LongValue lastNanoTime = new LongValue(System.nanoTime());
 
 		//Animation Loop
 		new AnimationTimer()
@@ -219,11 +252,11 @@ public class ViewFrame{
 			{
 				
 				// calculate time since last update.
-				double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
-				lastNanoTime.value = currentNanoTime;
+				//double elapsedTime = (currentNanoTime - lastNanoTime.value) / 1000000000.0;
+				//lastNanoTime.value = currentNanoTime;
 
 				
-				//Collition detection
+				//Collision detection
 				LabyrinthController.getInstance().detectCollitions(); 
 				
 				
@@ -262,6 +295,11 @@ public class ViewFrame{
 		LabyrinthController.getInstance().startBadBoysSearch();
 	}
 
+	/**
+	 * Method to detect keyboard events in the scene.
+	 * 
+	 * @param theScene The JavaFX Stage object it represents the JavaFX container
+	 */
 	private void keyboarEvents(Scene theScene){
 		theScene.setOnKeyPressed(
 				new EventHandler<KeyEvent>()
@@ -290,10 +328,22 @@ public class ViewFrame{
 				});
 	}
 
+	/**
+	 * Tool class used to save a floating number for the FPS (frames per second). It was intended for use in future advanced animations.
+	 * 
+	 * @author Carlos Villavicencio
+	 * @version 1.0
+	 */
+	@SuppressWarnings("unused")
 	private class LongValue
 	{
 		public long value;
 
+		/**
+		 * Set method for a long value.
+		 * 
+		 * @param i a long type number
+		 */
 		public LongValue(long i)
 		{
 			value = i;
