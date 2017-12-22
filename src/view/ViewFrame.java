@@ -186,6 +186,7 @@ public class ViewFrame{
 	 * Draw the labyrinth using the graph.
 	 * 
 	 * @param g graph that contains the information to draw the labyrinth.
+	 * @author Souha
 	 */
 	public void drawGraph(Graph g) {
 		Edge e;
