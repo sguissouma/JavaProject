@@ -36,6 +36,7 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	 * Adds a vertex to the graph, and return a boolean value according to the success of the operation
 	 * @param v : un sommet 
 	 * @return un booléen
+	 * @author Souha
 	 */
 	public boolean addVertex(Vertex v) {
 		boolean ret = super.addVertex(v);
@@ -218,6 +219,7 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	 * @param x the coordinates x 
 	 * @param y the coordinates y
 	 * @return a reference to the vertex that has x and y for coordinates in the graph
+	 * @author Souha
 	 */
 	public Vertex getVertex(int x, int y) {
 		for (Vertex v : vertexSet())
