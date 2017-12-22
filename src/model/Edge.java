@@ -2,7 +2,6 @@ package model;
 import org.jgrapht.graph.DefaultEdge;
 
 public class Edge extends DefaultEdge implements Comparable<Edge>{
-	
 
 	/**
 	 * 
@@ -11,30 +10,27 @@ public class Edge extends DefaultEdge implements Comparable<Edge>{
 	/**
 	 * 
 	 */
-	private DoorType door; 
-	
-	
-	public Edge(DoorType doorType) {
-		super();
-		this.door = doorType;
-	}
-	/* Constructeur par défaut */
-	
+	private DoorType doortype; 
+
+
 	public Edge() {
 		super();
-		this.door = DoorType.CORRIDOR;
+		setDoorType(DoorType.NONE);
 	}
-	
-	
+
+	public Edge (DoorType type) {
+		super();
+		setDoorType(type);
+	}
+
 	public Vertex getSource(){
 		return (Vertex) super.getSource();
 	}
-	
+
 	public Vertex getTarget() {
 		return (Vertex) super.getTarget();
 	}
-	
-	
+
 	@Override
 	public int compareTo(Edge o) {
 		int diffSource = this.getSource().compareTo(o.getSource());
@@ -43,17 +39,17 @@ public class Edge extends DefaultEdge implements Comparable<Edge>{
 		else
 			return  this.getTarget().compareTo(o.getTarget());
 	}
-	
+
 	public String toString() {
 		String s = "[" + this.getSource().toString() + "<->" + this.getTarget().toString() + "]";
 		return s;
 	}
-	
-	public void setDoor(DoorType doorType){
-		this.door = doorType;
+
+	public DoorType getDoorType() {
+		return doortype;
 	}
-	
-	public DoorType getDoor() {
-		return this.door;
+
+	public void setDoorType(DoorType doorType) {
+		this.doortype = doorType;
 	}
 }
