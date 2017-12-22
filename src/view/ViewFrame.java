@@ -103,6 +103,7 @@ public class ViewFrame{
 	 * @param stage The JavaFX Stage instance represents the level JavaFX container.
 	 * @param nbrX columns numbers in X
 	 * @param nbrY rows numbers in Y
+	 * @author Maxime Poret
 	 */
 	public void drawFrame(Stage stage, int nbrX, int nbrY) {
 		scene = new Scene(pane, ((WALL+CELL)*nbrX+WALL)*SPAN, ((WALL+CELL)*nbrY+WALL)*SPAN);
