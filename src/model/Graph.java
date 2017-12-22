@@ -6,23 +6,34 @@ import java.io.IOException;
 import java.util.Random;
 import org.jgrapht.graph.SimpleGraph;
 
+/**
+ * The Graph structure that contains info on the connections of the Labyrinth (walls and openings)
+ * @author Maxime Poret
+ * @version 1.0
+ */
+
 @SuppressWarnings("serial")
 public class Graph extends SimpleGraph<Vertex,Edge>{
 
 
+	/**
+	 * Graph Width
+	 */
 	public static final int WIDTH = 15;
 	/**
-	 * Hauteur du Graph
+	 * Graph Height
 	 */
 	public static final int HEIGHT = 15;
 
-
+/**
+ * Constructor of the Graph class
+ */
 	public Graph() {
 		super(Edge.class);
 	}
 
 	/**
-	 * ajout d'un sommet au graphe si tout s'est bien passé
+	 * Adds a vertex to the graph, and return a boolean value according to the success of the operation
 	 * @param v : un sommet 
 	 * @return un booléen
 	 */
@@ -32,9 +43,10 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	}
 
 	/**
-	 * 
-	 * @param vertex : un sommet
-	 * @return
+	 * Checks if a vertex is part of the graph (compares coordinates, not references)
+	 * @param vertex : a vertex
+	 * @return true if yes, false if no
+	 * @author Maxime Poret
 	 */
 	public boolean contains(Vertex vertex) {
 		for(Vertex v : this.vertexSet()) {
@@ -58,6 +70,12 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	 *  dot -Tpng -o mongraphe.png mongraphe.dot
 	 */
 
+	/**
+	 * For debugging purposes, turn the labyrinth into a graph that can be visualized using Dot
+	 * @param fileName
+	 * @throws IOException
+	 * @author Maxime Poret
+	 */
 	public void toDot(String fileName) throws IOException {
 		File f = new File(fileName);
 		FileWriter w = new FileWriter(f);
@@ -84,6 +102,10 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 		w.close();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Vertex randomVertex() {
 		Vertex v =null;
 		Random rnd = new Random();
@@ -97,6 +119,13 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 		return v;
 	}
 
+	/**
+	 * Gets the next vertex in a graph, depending on the direction we're going. Doesn't take notice of doors or walls.
+	 * @param vertex the starting vertex
+	 * @param dir the direction we're going
+	 * @return the next vertex
+	 * @author Maxime Poret
+	 */
 	public Vertex getVertexByDir(Vertex vertex, Directions dir) {
 		int xt, yt;
 		Vertex res =null;
@@ -145,6 +174,12 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 		return e;
 	}
 
+	/**
+	 * 
+	 * @param vertex
+	 * @param dir
+	 * @return
+	 */
 	public Edge getEdge(Vertex vertex, Directions dir) {
 		Vertex vRes ;
 		int xt, yt;
@@ -176,7 +211,12 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	}
 
 
-	// retourne le vertex dans le graph équivalent
+	/**
+	 * Get the vertex defined by the coordinates x and y in the graph
+	 * @param x
+	 * @param y
+	 * @return a reference to the vertex that has x and y for coordinates in the graph
+	 */
 	public Vertex getVertex(int x, int y) {
 		for (Vertex v : vertexSet())
 			if (v.getX() == x && v.getY() == y)
@@ -184,10 +224,22 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 		return null;
 	}
 
+	/**
+	 * Checks if two vertices are connected in the graph
+	 * @param vertex
+	 * @param next
+	 * @return true if they are connected, false if not
+	 */
 	public boolean isConnected(Vertex vertex, Vertex next) {
 		return this.containsEdge(vertex, next);
 	}
 
+	/**
+	 * Checks if there is a vertex defined in the graph, in the direction we're trying to go
+	 * @param vertex starting point
+	 * @param dir direction we're going
+	 * @return true if a vertex does NOT exist, false if it DOES exist
+	 */
 	public boolean doesntExist(Vertex vertex, Directions dir) {
 		Vertex v = getVertexByDir(vertex, dir); 
 		return v == null ;
