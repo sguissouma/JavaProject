@@ -15,8 +15,8 @@ public class Coord2D {
 
 	/**
 	 * Class constructor
-	 * @param x X coordinate for position
-	 * @param y Y coordinate for position
+	 * @param x coordinate x for position 
+	 * @param y coordinate y for position
 	 */
 	public Coord2D(int x, int y) {
 		this.x = x;
@@ -25,7 +25,7 @@ public class Coord2D {
 
 	/**
 	 * Gets X coordinate for position.
-	 * @return X coordinate
+	 * @return x coordinate
 	 */
 	public int getX() {
 		return this.x;
@@ -33,7 +33,7 @@ public class Coord2D {
 
 	/**
 	 * Set X coordinate for position.
-	 * @param X coordinate
+	 * @param x coordinate x
 	 */
 	public void setX(int x) {
 		this.x = x;
@@ -41,7 +41,7 @@ public class Coord2D {
 
 	/**
 	 * Gets Y coordinate for position.
-	 * @return Y coordinate
+	 * @return y coordinate
 	 */
 	public int getY() {
 		return this.y;
@@ -49,7 +49,7 @@ public class Coord2D {
 
 	/**
 	 * Set Y coordinate for position.
-	 * @param Y coordinate
+	 * @param y coordinate y
 	 */
 	public void setY(int y) {
 		this.y = y;

@@ -3,15 +3,37 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Vector;
-
 import model.Graph;
 
+/**
+ * Model class that represents the labyrinth. Any action that is carried out on it will be affected from this place.
+ * @author mporet
+ * @author Souhe Guissouma
+ * @author Carlos Villavicencio
+ */
 public class Labyrinth {
+	/**
+	 * Labyrinth's size
+	 */
 	public static final int size = 15;
 
+	/**
+	 * Labyrinth's top border
+	 */
 	public static final int TOP_BORDER = 0;
+	/**
+	 * Labyrinth's right border
+	 */
 	public static final int RIGHT_BORDER = size;
+
+	/**
+	 * Labyrinth's left border
+	 */
 	public static final int LEFT_BORDER = 0;
+
+	/**
+	 * Labyrinth's bottom border
+	 */
 	public static final int BOTTOM_BORDER = size;
 
 	private ArrayList<LabyrinthElement> labElem;
@@ -23,10 +45,17 @@ public class Labyrinth {
 	private int width = size;
 	private int height = size;
 
+	/**
+	 * Labyrinth's constructor
+	 */
 	public Labyrinth() {
 		this(new Vertex(0,0,0));
 	}
 
+	/**
+	 * Labyrinth's constructor with an initial vertex 
+	 * @param v initial vertex
+	 */
 	public Labyrinth(Vertex v) {
 		graph = new Graph();
 		graph.addVertex(v);
@@ -36,30 +65,53 @@ public class Labyrinth {
 		buildRandomPath(v);
 		//open random doors
 		createRandomDoors();
-		
+
 		labElem = new ArrayList<LabyrinthElement>();
 	}
 
+	/**
+	 * Gets Labyrinth's width
+	 * @return returns the labyrinth's width
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * Sets the Labyrinth's width
+	 * @param width of the labyrinth to be assigned
+	 */
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
+	/**
+	 * Gets Labyrinth's height
+	 * @return returns the labyrinth's height
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * Sets the Labyrinth's height
+	 * @param height of the labyrinth to be assigned
+	 */
 	public void setHeight(int height) {
 		this.height = height;
 	}
 
+	/**
+	 * Method to access the graph
+	 * @return returns the labyrinth graph
+	 */
 	public Graph getGraph() {
 		return graph;
 	}
-
+	/**
+	 * build a random path from an initial vertex
+	 * @param vertex initial vertex
+	 */
 	private void buildRandomPath(Vertex vertex) {
 
 		//initialisation des directions
@@ -100,21 +152,19 @@ public class Labyrinth {
 		}
 	}
 
-	/*	public void printGraph() {
-		System.out.println(graph.toString());
-		try {
-			graph.toDot("Laby.dot");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
-
-
+	/**
+	 * Adds an element to the list of elements of the labyrinth.
+	 * @param element element to be added.
+	 */
 	public void addElement(LabyrinthElement element) {
 		this.labElem.add(element);
 	}
-	
+
+	/**
+	 * Obtains a list of labyrinth's elements using the element's type as a reference.
+	 * @param type element's type used as a reference.
+	 * @return A list of labyrinth's elements filtered by type
+	 */
 	public ArrayList<LabyrinthElement> getElementsByType(LabyrinthElementType type) {
 		ArrayList<LabyrinthElement> res = new ArrayList<LabyrinthElement>();
 
@@ -125,7 +175,13 @@ public class Labyrinth {
 		}
 		return res;
 	}
-	
+
+	/**
+	 * get an element of the labyrinth given the coordinates
+	 * @param x coordinate in x
+	 * @param y coordinate in y
+	 * @return A labyrinth element
+	 */
 	public LabyrinthElement getElementAt(int x, int y) {
 		for(LabyrinthElement i : labElem) {
 			if(i.getPosition().x == x && i.getPosition().y == y)
@@ -133,25 +189,43 @@ public class Labyrinth {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * Gets all labyrinth's elements that are in the same coordinates.
+	 * 
+	 * @param x coordinate in x
+	 * @param y coordinate in y
+	 * @return all elements presents in the given position
+	 */
 	public ArrayList<LabyrinthElement> getElementsAt(int x, int y) {
 		ArrayList<LabyrinthElement> elements = new ArrayList<LabyrinthElement>();
-		
+
 		for(LabyrinthElement i : labElem) {
 			if(i.getPosition().x == x && i.getPosition().y == y)
 				elements.add(i);
 		}
 		return elements;
 	}
-	
+
+	/**
+	 * Gets all labyrinth's elements from the labyrinth.
+	 * @return a list of elements of the labyrinth
+	 */
 	public ArrayList<LabyrinthElement> getElements(){
 		return this.labElem;
 	}
-	
+
+	/**
+	 * Remove an element from the labyrinth
+	 * @param element element to remove
+	 */
 	public void removeElement(LabyrinthElement element) {
 		labElem.remove(element);
 	}
-	
+
+	/**
+	 * Removes all the elements of the labyrinth
+	 */
 	public void removeAllElements() {
 		labElem.clear();
 	}
@@ -168,7 +242,7 @@ public class Labyrinth {
 	 */
 
 	/**
-	 * Simplifie arbitrairement le labyrinthe en changeant l'état de plusieurs aretes du graphe en "CLOSED_DOOR"
+	 * Arbitrarily simplifies the labyrinth by changing the state of several edges of the graph to "CLOSED_DOOR"
 	 * @since 01/12/17
 	 */
 	public void createRandomDoors() {
@@ -192,38 +266,43 @@ public class Labyrinth {
 		}
 	}
 
+	/**
+	 * Get a ArrayList's edge that represent the doors in the labyrinth.
+	 * @return list of doors
+	 */
 	public ArrayList<Edge> getDoorList(){
 		return this.doors;
 	}
 
 	/**
-	 * Ferme arbitrairement une porte
+	 * Close a door by changing the state of an edge to "CLOSED"
+	 * @param edge edge that represents the door
 	 */
-	/*public void closeDoorRandom() {
-		Random random = new Random();
-	    int index = random.nextInt(doors.size());
-	    doors.get(index).closeDoor();
-	}*/
-
-
 	public void closeDoor(Edge edge) {
 		edge.setDoorType(DoorType.CLOSED);		
 	}
 
+	/**
+	 * Open a door by changing the state of an edge to "OPENED"
+	 * @param edge edge that represents the door
+	 */
 	public void openDoor(Edge edge) {
 		edge.setDoorType(DoorType.OPENED);		
 	}
 
+	/**
+	 * Close a door in an arbitrarily way
+	 */
 	public void closeDoorRandom (){ 
 		Edge edge = graph.randomEdge(); 
 		closeDoor(edge);
 	}
 
 	/**
-	 * VÃ©rifie si il n'y a pas de liaison direct entre 2 sommets 
-	 * @param v sommet d'origine
-	 * @param dir direction permettant d'identifier le deuxiÃšme sommet concernÃ©
-	 * @return un booléen sur le fait qu'il existe ou non un arc entre les 2 sommets
+	 * Check if there is no direct connection between 2 vertices 
+	 * @param v origin's vertex
+	 * @param dir direction to identify the second vertex concerned
+	 * @return a boolean about whether or not there is an arc between the two vertices
 	 * @since 01/12/17
 	 */
 	public boolean isWall(Vertex v, Directions dir) {
@@ -231,21 +310,46 @@ public class Labyrinth {
 		return (!graph.containsEdge(v, tmpV));
 	}
 
+	/**
+	 * Check if the connection between two vertices is closed. If it does, it returns true, otherwise it returns false.
+	 * @param vertex Vertex that will be taken as reference point
+	 * @param dir direction around the vertex.
+	 * @return boolean saying if the connection is closed or not.
+	 */
 	public boolean isClosed(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
 		return ((edge == null) || (edge.getDoorType() == DoorType.CLOSED));
 	}
 
+
+	/**
+	 * Check if the connection between two vertices is open. If it does, it returns true, otherwise it returns false.
+	 * @param vertex Vertex that will be taken as reference point
+	 * @param dir direction around the vertex.
+	 * @return boolean saying if the connection is opened or not.
+	 */
 	public boolean isOpened(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
 		return ((edge != null) && (edge.getDoorType() != DoorType.CLOSED));
 	}
 
+	/**
+	 * Check if there is an edge representing a closed door attached to the vertex. If it does, it returns true, otherwise it returns false.
+	 * @param vertex Vertex that will be taken as reference point
+	 * @param dir direction around the vertex.
+	 * @return boolean saying if a door is closed
+	 */
 	public boolean isClosedDoor(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
 		return ((edge != null) && (edge.getDoorType() == DoorType.CLOSED));
 	}
 
+	/**
+	 * Check if there is an edge representing a opened door attached to the vertex. If it does, it returns true, otherwise it returns false.
+	 * @param vertex Vertex that will be taken as reference point
+	 * @param dir direction around the vertex.
+	 * @return boolean saying if a door is opened
+	 */
 	public boolean isOpenedDoor(Vertex vertex, Directions dir) {
 		Edge edge = graph.getEdge(vertex, dir);
 		return ((edge != null) && (edge.getDoorType() == DoorType.OPENED));

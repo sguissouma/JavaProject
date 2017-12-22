@@ -72,8 +72,8 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 
 	/**
 	 * For debugging purposes, turn the labyrinth into a graph that can be visualized using Dot
-	 * @param fileName
-	 * @throws IOException
+	 * @param fileName string with the name's file
+	 * @throws IOException if no file's located, it could be an error
 	 * @author Maxime Poret
 	 */
 	public void toDot(String fileName) throws IOException {
@@ -103,8 +103,8 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	}
 
 	/**
-	 * 
-	 * @return
+	 * It selects a vertex randomly from the graph
+	 * @return a vertex selected at random
 	 */
 	public Vertex randomVertex() {
 		Vertex v =null;
@@ -158,8 +158,8 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	}
 
 	/**
-	 * 
-	 * @return
+	 * It selects an edge randomly from the graph
+	 * @return an edge selected at random
 	 */
 	public Edge randomEdge() {
 		Edge e =null;
@@ -175,10 +175,10 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	}
 
 	/**
-	 * 
-	 * @param vertex
-	 * @param dir
-	 * @return
+	 * It selects a edge from graph given and adjacent vertex and a direction.
+	 * @param vertex adjacent vertex.
+	 * @param dir Direction for a movement verification. 
+	 * @return An adjacent edge to vertex.
 	 */
 	public Edge getEdge(Vertex vertex, Directions dir) {
 		Vertex vRes ;
@@ -213,8 +213,8 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 
 	/**
 	 * Get the vertex defined by the coordinates x and y in the graph
-	 * @param x
-	 * @param y
+	 * @param x the coordinates x 
+	 * @param y the coordinates y
 	 * @return a reference to the vertex that has x and y for coordinates in the graph
 	 */
 	public Vertex getVertex(int x, int y) {
@@ -226,8 +226,8 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 
 	/**
 	 * Checks if two vertices are connected in the graph
-	 * @param vertex
-	 * @param next
+	 * @param vertex initial vertex
+	 * @param next ending vertex
 	 * @return true if they are connected, false if not
 	 */
 	public boolean isConnected(Vertex vertex, Vertex next) {
@@ -238,7 +238,7 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	 * Checks if there is a vertex defined in the graph, in the direction we're trying to go
 	 * @param vertex starting point
 	 * @param dir direction we're going
-	 * @return true if a vertex does NOT exist, false if it DOES exist
+	 * @return true if a vertex does NOT exist, false if it DOES exist.
 	 */
 	public boolean doesntExist(Vertex vertex, Directions dir) {
 		Vertex v = getVertexByDir(vertex, dir); 

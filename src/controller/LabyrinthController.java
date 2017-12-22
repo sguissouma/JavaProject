@@ -65,7 +65,7 @@ public class LabyrinthController {
 	}
 
 	/**
-	 * getter method to obtain the labyrinth instance
+	 * Getter method to obtain the labyrinth instance
 	 * @return  The labyrinth instance.
 	 */
 	public Labyrinth getLabyrinth() {
@@ -73,7 +73,8 @@ public class LabyrinthController {
 	}
 
 	/**
-	 * setter method to set the player Controller instance
+	 * Setter method to set the player Controller instance
+	 * @param playerController the player controller
 	 */
 	public void setPlayerController(PlayerController playerController) {
 		this.playerController = playerController;

@@ -65,8 +65,8 @@ public class Sprite
 
 	/**
 	 * Set the coordinates of the Sprite
-	 * @param x
-	 * @param y
+	 * @param x coordinate x
+	 * @param y coordinate y
 	 */
 	public void setPosition(double x, double y)
 	{

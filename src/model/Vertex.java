@@ -102,7 +102,7 @@ public class Vertex implements Comparable<Vertex>{
 	/**
 	 * Checks if two vertices (this one and another) are next to each other on a x,y grid
 	 * @param o the other vertex
-	 * @return
+	 * @return returns if the provided vertex is neighbor to the current vertex instance
 	 */
 	public boolean isNeighbor(Vertex o) {
 		int dx = Math.abs(x - o.x);

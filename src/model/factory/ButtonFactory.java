@@ -17,6 +17,8 @@ public class ButtonFactory extends BaseFactory{
 	/**
 	 * Method used to build necessary objects linked to a Button
 	 * @return returns an object of type ButtonSprite that represents the view of a button.
+	 * @param type button of type CLOSER or OPENER
+	 * @param edge edge associate to the button
 	 */
 	public static ButtonSprite createButton(ButtonType type, Edge edge){
 	
