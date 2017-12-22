@@ -188,7 +188,7 @@ public class LabyrinthController {
 				//We ignore the object player
 				case PLAYER:
 					continue;
-					
+
 					//Candy
 				case CANDY: 
 					if(element.isActive()){
@@ -198,9 +198,11 @@ public class LabyrinthController {
 
 					//Bad Guy
 				case BADBOY:
-					alert("GAME OVER");
-					this.gameOver = true;	
-					this.stopBadBoysSearch();
+					if(!this.gameOver) {
+						alert("GAME OVER");
+						this.gameOver = true;	
+						this.stopBadBoysSearch();
+					}
 					break;
 
 				case BUTTON:
@@ -212,14 +214,16 @@ public class LabyrinthController {
 						model.closeDoor(btn.getDoorEdge());
 					}
 					break;
-					
+
 					//Exit
 				case EXIT:
-					alert("YOU WIN !");
-					this.gameOver = true;	
-					this.stopBadBoysSearch();
+					if(!this.gameOver) {
+						alert("YOU WIN !");
+						this.gameOver = true;	
+						this.stopBadBoysSearch();
+					}
 					break;
-					
+
 				default:
 					break;
 
