@@ -10,6 +10,7 @@ import model.Graph;
  * @author mporet
  * @author Souhe Guissouma
  * @author Carlos Villavicencio
+ * @author Carlos Nezout
  */
 public class Labyrinth {
 	/**
