@@ -38,6 +38,7 @@ public class PlayerController {
 	/**
 	 * With this method the coordinate of the player entity will be changed.
 	 * @param direction Direction that will affect the coordinate position of the player entity.
+	 * @author Souha
 	 */
 	public void move(Directions direction){
 		if (direction == Directions.WEST){
