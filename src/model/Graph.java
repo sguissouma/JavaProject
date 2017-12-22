@@ -105,6 +105,7 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	/**
 	 * It selects a vertex randomly from the graph
 	 * @return a vertex selected at random
+	 * @author Carlos Nezout
 	 */
 	public Vertex randomVertex() {
 		Vertex v =null;
@@ -160,6 +161,7 @@ public class Graph extends SimpleGraph<Vertex,Edge>{
 	/**
 	 * It selects an edge randomly from the graph
 	 * @return an edge selected at random
+	 * @author Carlos Nezout
 	 */
 	public Edge randomEdge() {
 		Edge e =null;
